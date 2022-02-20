@@ -7,8 +7,8 @@ const x = 0;
 
 export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Boil erplate – hello from the editor!', 'boilerplate' ) }
+		<p {...useBlockProps()}>
+			{__('Boil erplate – hello from the editor!', 'boilerplate')}
 		</p>
 	);
 }

@@ -15,9 +15,13 @@
 		"start": "wp-scripts start"
 	},
 	"prettier": "@wordpress/prettier-config",
+	"stylelint": {
+		"extends": "stylelint-config-wordpress/scss"
+	},
 	"devDependencies": {
 		"@wordpress/prettier-config": "^1.1.2",
 		"@wordpress/scripts": "^21.0.2",
+		"@wordpress/stylelint-config": "^20.0.1",
 		"eslint-config-prettier": "^8.4.0"
 	},
 	"dependencies": {
