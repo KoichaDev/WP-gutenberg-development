@@ -1,10 +1,15 @@
 import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps } from '@wordpress/block-editor';
 
 registerBlockType('block-course/firstblock', {
 	edit: () => {
-		return <p className='helloo'>hellooasdasds JSX is edited</p>;
+        
+        // We want to use the blockProps to get all of the props from WP. In this case, we want to use it with the className prop.
+        const blockProps = useBlockProps();
+        return <p {...blockProps}>hellooasdasds JSX is edited</p>;
 	},
 	save: () => {
-		return <p className='helloo'>helloo JSX is saved</p>;
+        const blockProps =useBlockProps.save()
+        return <p {...blockProps}>helloo JSX is saved</p>;
 	},
 });
