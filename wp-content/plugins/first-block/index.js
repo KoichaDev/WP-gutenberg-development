@@ -1,10 +1,13 @@
 var registerBlockType =  wp.blocks.registerBlockType;
+var createElement = wp.element.createElement;
 
 registerBlockType("block-course/firstblock", {
     edit: () => {
-        return "Edit"
+        return createElement('P', {
+            classname: 'first-block'
+        }, "Edit")
     }, 
     save: () => {
-        return "save"
+        return createElement('P', null, "Save")
     }
 })
