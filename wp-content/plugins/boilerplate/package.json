@@ -23,6 +23,7 @@
 		"@wordpress/scripts": "^21.0.2",
 		"@wordpress/stylelint-config": "^20.0.1",
 		"eslint-config-prettier": "^8.4.0",
+		"husky": "^7.0.4",
 		"stylelint": "^14.5.1"
 	},
 	"dependencies": {
