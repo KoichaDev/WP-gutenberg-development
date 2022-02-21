@@ -31,6 +31,44 @@ function blocks_theme_setup() {
 	// This is to give the Gutenberg block more support for adding align wide and align full
 	add_theme_support('align-wide');
 
+	// This is used to override the current WP color that gives us the features. Instead we are using our defintion of what color 
+	// to use instead
+	add_theme_support( 'editor-color-palette', [
+		// reason we're using the esc_attr() function is to give the WP aria-label="Color: strong magenta" attribute to a button element for example 
+		[ 
+			'name' => esc_attr( 'Strong magenta', 'themeLangDomain' ),
+			'slug' => 'strong-magenta',
+			'color' => '#a156b4',
+		],
+		[
+			'name' => esc_attr( 'Very light gray', 'themeLangDomain' ),
+			'slug' => 'very-light-gray',
+			'color' => '#eee',
+		],
+	]);
+
+	// Disabling the WP given us the custome color option
+	add_theme_support( 'disable-custom-colors' );
+
+
+	add_theme_support('editor-gradient-presets', [
+			[
+					'name'     => esc_attr__( 'Red to Blue', 'themeLangDomain' ),
+					'gradient' => 'linear-gradient(135deg,#e4064d 0%,#2c59ee 100%)',
+					'slug'     => 'red-to-blue'
+			],
+			[
+				'name'     => esc_attr__( 'Green to Yellow', 'themeLangDomain' ),
+				'gradient' => 'linear-gradient(135deg,#3ce406 0%,#d6e029 100%)',
+				'slug'     =>  'green-to-yellow',
+			],
+		]
+	);
+
+	
+/* This is a way to disable the custom gradient feature in Gutenberg. */
+add_theme_support( 'disable-custom-gradients' );
+	
 	/*
 		* Make theme available for translation.
 		* Translations can be filed in the /languages/ directory.
