@@ -51,6 +51,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 
 
+ // prettier-ignore
 
 
 
@@ -59,17 +60,28 @@ function Edit(_ref) {
     attributes,
     setAttributes
   } = _ref;
-  console.log(attributes);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)(), {
+  const buttonControl = [{
+    title: 'Button 1',
+    icon: 'admin-generic',
+    isActive: true,
+    onClick: () => console.log('cliiicke')
+  }, {
+    title: 'Button 2',
+    icon: 'admin-collapse',
+    onClick: () => console.log('button 2')
+  }];
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.BlockControls, {
+    controls: buttonControl
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)(), {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Type something...', 'teext-block'),
     tagName: "h4" // allowedFormats is allowing what format to use
     ,
-    allowedFormats: ['core/bold'],
+    allowedFormats: [],
     value: attributes.text,
     onChange: textValue => setAttributes({
       text: textValue
     })
-  }));
+  })));
 }
 
 /***/ }),
