@@ -65,10 +65,32 @@ function blocks_theme_setup() {
 		]
 	);
 
-	
-/* This is a way to disable the custom gradient feature in Gutenberg. */
-add_theme_support( 'disable-custom-gradients' );
-	
+		
+	/* This is a way to disable the custom gradient feature in Gutenberg. */
+	add_theme_support( 'disable-custom-gradients' );
+
+	add_theme_support( 'editor-font-sizes', array(
+				array(
+					'name' => esc_attr__( 'Small', 'themeLangDomain' ),
+					'size' => 12,
+					'slug' => 'small'
+				),
+				array(
+					'name' => esc_attr__( 'Regular', 'themeLangDomain' ),
+					'size' => 16,
+					'slug' => 'regular'
+				),
+				array(
+					'name' => esc_attr__( 'Large', 'themeLangDomain' ),
+					'size' => 36,
+					'slug' => 'large'
+				)
+			) );	
+
+	add_theme_support( 'disable-custom-font-sizes' );
+
+
+
 	/*
 		* Make theme available for translation.
 		* Translations can be filed in the /languages/ directory.
