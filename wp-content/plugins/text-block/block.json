@@ -3,9 +3,8 @@
 	"name": "block-course/text-block",
 	"title": "Text Block Bro",
 	"category": "text",
-	"icon": "text-page",
 	"description": "A box of text",
-	"keywords": ["text", "paragraph", "box"],
+	"keywords": [ "text", "paragraph", "box" ],
 	"supports": {
 		"html": false
 	},
