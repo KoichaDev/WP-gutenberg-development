@@ -89,6 +89,14 @@ function blocks_theme_setup() {
 
 	add_theme_support( 'disable-custom-font-sizes' );
 
+	add_theme_support( 'custom-line-height' );
+
+	/* This is a way to add spacing the padding to the block editor. */
+	add_theme_support( 'custom-spacing' );
+
+	/* This is adding support for custom units in the Gutenberg block editor for dimentions of minimum heights of cover. */
+	add_theme_support( 'custom-units', 'px', 'rem', 'em' );
+
 
 
 	/*
