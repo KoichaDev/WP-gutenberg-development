@@ -20,6 +20,17 @@ if ( ! defined( '_S_VERSION' ) ) {
  * as indicating support for post thumbnails.
  */
 function blocks_theme_setup() {
+
+	add_theme_support( 'editor-styles' );
+	add_editor_style( 'style-editor.css' ); 
+
+	// add_theme_support is used for responsive video image for example embedding the YouTube Video
+	// to give a better block editor content support it looks actual the front-end
+	add_theme_support('responsive-embeds');
+
+	// This is to give the Gutenberg block more support for adding align wide and align full
+	add_theme_support('align-wide');
+
 	/*
 		* Make theme available for translation.
 		* Translations can be filed in the /languages/ directory.

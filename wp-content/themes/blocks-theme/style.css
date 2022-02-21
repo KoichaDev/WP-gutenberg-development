@@ -67,6 +67,33 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 	margin: auto;
 }
 
+.alignwide {
+	margin-left: -100px;
+	margin-right: -100px;
+}
+
+@media screen and (max-width: 1000px) {
+	.alignwide {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+.alignfull {
+	margin-left: calc(-1 * (100vw -800px) / 2);
+	margin-right: calc(-1 * (100vw -800px) / 2);
+}
+
+@media screen and (max-width: 800px) {
+	.alignfull {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+body {
+	background: #c9e5f0;
+}
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
@@ -477,10 +504,6 @@ big {
 
 /* Elements
 --------------------------------------------- */
-body {
-	background: #fff;
-}
-
 hr {
 	background-color: #ccc;
 	border: 0;

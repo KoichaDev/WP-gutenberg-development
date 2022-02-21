@@ -1,0 +1,17 @@
+/* This CSS file is used in context for WP editor. The idea is to match the editor as the front-end */
+
+body {
+	background: #c9e5f0;
+}
+
+.wp-block {
+	max-width: 800px;
+}
+
+.wp-block[data-align='full'] {
+	max-width: none;
+}
+
+.wp-block[data-align='wide'] {
+	max-width: 1000px;
+}
