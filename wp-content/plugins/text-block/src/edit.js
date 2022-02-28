@@ -8,35 +8,30 @@ import {
 	InspectorControls,
 	PanelColorSettings,
 	ContrastChecker,
+	withColors,
 } from '@wordpress/block-editor';
 
 // constants for the block
 import './editor.scss';
 
-export default function Edit({ attributes, setAttributes }) {
-	const { text, alignment, backgroundColor, textColor } = attributes;
+function Edit(props) {
+	const { attributes, setAttributes, backgroundColor, setBackgroundColor, textColor, setTextColor } = props;
+	const { text, alignment } = attributes;
 
 	const alignmentToolbarHandler = (alignmentValue) =>
 		setAttributes({ alignment: alignmentValue });
 
 	const richTextHandler = (textValue) => setAttributes({ text: textValue });
 
-
-
-	// prettier-ignore
-	const backgroundColorHandler = (backgroundColor) => setAttributes({ backgroundColor });
-
-	const textColorHandler = (textColor) => setAttributes({ textColor });
-
 	const colorSettings = [
 		{
-			value: backgroundColor,
-			onChange: backgroundColorHandler,
+			value: backgroundColor.color,
+			onChange: setBackgroundColor,
 			label: __('background Color', 'text-box'),
 		},
 		{
-			value: textColor,
-			onChange: textColorHandler,
+			value: textColor.color,
+			onChange: setTextColor,
 			label: __('Text Color', 'text-box'),
 		},
 	];
@@ -52,8 +47,8 @@ export default function Edit({ attributes, setAttributes }) {
 					initialOpen
 				>
 					<ContrastChecker
-						textColor={textColor}
-						backgroundColor={backgroundColor}
+						textColor={textColor.color}
+						backgroundColor={backgroundColor.color}
 					/>
 				</PanelColorSettings>
 			</InspectorControls>
@@ -69,8 +64,8 @@ export default function Edit({ attributes, setAttributes }) {
 				{...useBlockProps({
 					className: `text-box-align-${alignment}`,
 					style: {
-						background: backgroundColor,
-						color: textColor,
+						background: backgroundColor.color,
+						color: textColor.color,
 					},
 				})}
 				placeholder={__('Type something...', 'text-block')}
@@ -83,3 +78,8 @@ export default function Edit({ attributes, setAttributes }) {
 		</>
 	);
 }
+
+export default withColors({
+	backgroundColor: 'backgroundColor',
+	textColor: 'color',
+})(Edit);

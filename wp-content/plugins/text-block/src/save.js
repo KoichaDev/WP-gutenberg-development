@@ -1,15 +1,29 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText, getColorClassName } from '@wordpress/block-editor';
+import classnames from 'classnames'
+
 
 export default function save({ attributes }) {
-	const { text, alignment, backgroundColor } = attributes;
+	// prettier-ignore
+	const { text, alignment, backgroundColor, textColor, customBackgroundColor, customTextColor } = attributes;
+
+	// first parameter is the CSS property, second is the value
+	const backgroundClassName = getColorClassName("background-color", backgroundColor);
+
+	const textClassName = getColorClassName("color", textColor);
+
+	const classes = classnames(`text-box-align-${alignment}`, {
+		[textClassName]: textClassName,
+		[backgroundClassName]: backgroundClassName,
+	})
 
 	return (
 		<RichText.Content
 			{...useBlockProps.save({
-				className: `text-box-align-${alignment}`,
+				className: classes,
 				style: {
-					backgroundColor,
+					backgroundColor: !backgroundClassName ? customBackgroundColor : undefined,
+					color: !textClassName ? customTextColor : undefined,
 				},
 			})}
 			tagName="h4"
