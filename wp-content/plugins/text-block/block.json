@@ -6,7 +6,12 @@
 	"description": "A box of text",
 	"keywords": ["text", "paragraph", "box"],
 	"supports": {
-		"html": false
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		}
 	},
 	"textdomain": "text-box",
 	"editorScript": "file:./build/index.js",
@@ -26,13 +31,12 @@
 			"type": "string"
 		},
 		"textColor": {
-			"type": "string"
+			"type": "string",
+			"default": "very-light-gray"
 		},
-		"customBackgroundColor": {
-			"type": "string"
-		},
-		"customTextColor": {
-			"type": "string"
+		"gradient": {
+			"type": "string",
+			"default": "green-to-yellow"
 		}
 	}
 }
