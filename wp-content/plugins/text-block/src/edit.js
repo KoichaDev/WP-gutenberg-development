@@ -1,16 +1,16 @@
 import { __ } from '@wordpress/i18n';
 
-// prettier-ignore
-import { useBlockProps, RichText, BlockControls, AlignmentToolbar, InspectorControls } from '@wordpress/block-editor';
 import {
-	PanelBody,
-	TextControl,
-	TextareaControl,
-	ToggleControl,
-	AnglePickerControl,
-	ColorPicker,
-	ColorPalette,
-} from '@wordpress/components';
+	useBlockProps,
+	RichText,
+	BlockControls,
+	AlignmentToolbar,
+	InspectorControls,
+	PanelColorSettings,
+	ContrastChecker,
+} from '@wordpress/block-editor';
+
+// constants for the block
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
@@ -21,43 +21,43 @@ export default function Edit({ attributes, setAttributes }) {
 
 	const richTextHandler = (textValue) => setAttributes({ text: textValue });
 
+
+
 	// prettier-ignore
 	const backgroundColorHandler = (backgroundColor) => setAttributes({ backgroundColor });
 
 	const textColorHandler = (textColor) => setAttributes({ textColor });
 
-	const buttonControl = [
+	const colorSettings = [
 		{
-			title: 'Button 1',
-			icon: 'admin-generic',
-			isActive: true,
-			onClick: () => console.log('cliiicke'),
+			value: backgroundColor,
+			onChange: backgroundColorHandler,
+			label: __('background Color', 'text-box'),
 		},
 		{
-			title: 'Button 2',
-			icon: 'admin-collapse',
-			onClick: () => console.log('button 2'),
+			value: textColor,
+			onChange: textColorHandler,
+			label: __('Text Color', 'text-box'),
 		},
 	];
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody
+				<PanelColorSettings
 					title={__('Color settings', 'text-box')}
 					icon="admin-appearance"
-					initialOpen={true}
+					disableCustomColors={false}
+					colorSettings={colorSettings}
+					initialOpen
 				>
-					<ColorPalette
-						colors={[
-							{ name: 'red', color: '#F00' },
-							{ name: 'black', color: '#000' },
-						]}
-						value={backgroundColor}
-						onChange={backgroundColorHandler}
+					<ContrastChecker
+						textColor={textColor}
+						backgroundColor={backgroundColor}
 					/>
-				</PanelBody>
+				</PanelColorSettings>
 			</InspectorControls>
+
 			<BlockControls>
 				<AlignmentToolbar
 					value={alignment}
@@ -69,8 +69,9 @@ export default function Edit({ attributes, setAttributes }) {
 				{...useBlockProps({
 					className: `text-box-align-${alignment}`,
 					style: {
-						backgroundColor,
-					}
+						background: backgroundColor,
+						color: textColor,
+					},
 				})}
 				placeholder={__('Type something...', 'text-block')}
 				tagName="h4"
