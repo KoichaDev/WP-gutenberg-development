@@ -1,16 +1,17 @@
 import { __ } from '@wordpress/i18n';
 
 // prettier-ignore
-import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
-import {
-	ToolbarGroup,
-	ToolbarButton,
-	ToolbarDropdownMenu,
-} from '@wordpress/components';
+import { useBlockProps, RichText, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const text = attributes.text;
+	const { text, alignment } = attributes;
+
+	const alignmentToolbarHandler = (alignmentValue) => setAttributes({ alignment: alignmentValue });
+
+	const richTextHandler = (textValue) => setAttributes({ text: textValue })
+
+
 
 	const buttonControl = [
 		{
@@ -28,61 +29,21 @@ export default function Edit({ attributes, setAttributes }) {
 
 	return (
 		<>
-			{text && (
-				<>
-					<BlockControls group="inline">
-						<p>Inline Controls</p>
-					</BlockControls>
-					<BlockControls group="block">
-						<p>Block control text</p>
-					</BlockControls>
-					<BlockControls group="other" controls={buttonControl}>
-						<ToolbarGroup>
-							<ToolbarButton
-								title="Align Left"
-								icon="editor-alignleft"
-								onClick={() => console.log('Align left')}
-							/>
-							<ToolbarButton
-								title="Align Center"
-								icon="editor-aligncenter"
-								onClick={() => console.log('Align Center')}
-							/>
-							<ToolbarButton
-								title="Align Right"
-								icon="editor-alignright"
-								onClick={() => console.log('Align right')}
-							/>
-							<ToolbarDropdownMenu
-								icon="arrow-down-alt2"
-								label={__(
-									'More Alignment Options',
-									'block-text'
-								)}
-								controls={[
-									{
-										title: __('Wide', 'block-text'),
-										icon: 'align-wide',
-									},
-									{
-										title: __('Full', 'block-text'),
-										icon: 'align-full-width',
-									},
-								]}
-							/>
-						</ToolbarGroup>
-					</BlockControls>
-				</>
-			)}
+			<BlockControls>
+				<AlignmentToolbar value={alignment} onChange={alignmentToolbarHandler} />
+			</BlockControls>
 
 			<RichText
-				{...useBlockProps()}
-				placeholder={__('Type something...', 'teext-block')}
+				{...useBlockProps({
+					className: `text-box-align-${alignment}`,
+				})}
+				placeholder={__('Type something...', 'text-block')}
 				tagName="h4"
 				// allowedFormats is allowing what format to use
 				allowedFormats={[]}
-				value={attributes.text}
-				onChange={(textValue) => setAttributes({ text: textValue })}
+				value={text}
+				onChange={richTextHandler}
+				style={{ textAlign: alignment }}
 			/>
 		</>
 	);
