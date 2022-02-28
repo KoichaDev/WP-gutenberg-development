@@ -11,6 +11,9 @@
 			"background": true,
 			"text": true,
 			"gradients": true
+		},
+		"spacing": {
+			"padding": true
 		}
 	},
 	"textdomain": "text-box",
@@ -35,8 +38,23 @@
 			"default": "very-light-gray"
 		},
 		"gradient": {
-			"type": "string",
-			"default": "green-to-yellow"
+			"type": "string"
+		},
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": "#f03"
+				},
+				"spacing": {
+					"padding": {
+						"top": "100px",
+						"left": "100px",
+						"right": "100px",
+						"bottom": "100px"
+					}
+				}
+			}
 		}
 	}
 }

@@ -7,11 +7,15 @@ import {
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
 
+import { __experimentalBoxControl as BoxControl } from '@wordpress/components';
+
 // constants for the block
 import './editor.scss';
 
+const { __Visualizer: BoxControlVisualizer } = BoxControl;
+
 function Edit(props) {
-	const { attributes, setAttributes } = props;
+	const { attributes, setAttributes, style } = props;
 	const { text, alignment } = attributes;
 
 	const onChangeAlignmentToolbarHandler = (alignmentValue) =>
@@ -28,17 +32,30 @@ function Edit(props) {
 				/>
 			</BlockControls>
 
-			<RichText
+			<div
 				{...useBlockProps({
 					className: `text-box-align-${alignment}`,
 				})}
-				placeholder={__('Type something...', 'text-block')}
-				tagName="h4"
-				// allowedFormats is allowing what format to use
-				allowedFormats={[]}
-				value={text}
-				onChange={richTextHandler}
-			/>
+			>
+				<RichText
+					{...useBlockProps({
+						className: `text-box-align-${alignment}`,
+					})}
+					className="text-box-title"
+					placeholder={__('Type something...', 'text-block')}
+					tagName="h4"
+					// allowedFormats is allowing what format to use
+					allowedFormats={[]}
+					value={text}
+					onChange={richTextHandler}
+				/>
+				<BoxControlVisualizer
+					values={style && style.spacing && style.spacing.padding}
+					showValues={
+						style && style.visualizers && style.visualizers.padding
+					}
+				/>
+			</div>
 		</>
 	);
 }
