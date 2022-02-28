@@ -14,12 +14,17 @@ import {
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { text, alignment } = attributes;
+	const { text, alignment, backgroundColor, textColor } = attributes;
 
 	const alignmentToolbarHandler = (alignmentValue) =>
 		setAttributes({ alignment: alignmentValue });
 
 	const richTextHandler = (textValue) => setAttributes({ text: textValue });
+
+	// prettier-ignore
+	const backgroundColorHandler = (backgroundColor) => setAttributes({ backgroundColor });
+
+	const textColorHandler = (textColor) => setAttributes({ textColor });
 
 	const buttonControl = [
 		{
@@ -43,40 +48,13 @@ export default function Edit({ attributes, setAttributes }) {
 					icon="admin-appearance"
 					initialOpen={true}
 				>
-					<TextControl
-						label={__('Input Label', 'text-block')}
-						value={text}
-						onChange={richTextHandler}
-						help={'Help'}
-					/>
-
-					<TextareaControl
-						label={__('Text Area Label', 'text-block')}
-						value={text}
-						onChange={richTextHandler}
-						help={'Help'}
-					/>
-
-					<ToggleControl
-						label="Toggle Label"
-						checked={true}
-						onChange={(value) => console.log(value)}
-					/>
-
-					<AnglePickerControl />
-
-					<ColorPicker
-						color={'F03'}
-						onChangeComplete={(value) => console.log(value)}
-					/>
-
 					<ColorPalette
 						colors={[
 							{ name: 'red', color: '#F00' },
 							{ name: 'black', color: '#000' },
 						]}
-
-						onChange={value => console.log(value)}
+						value={backgroundColor}
+						onChange={backgroundColorHandler}
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -90,6 +68,9 @@ export default function Edit({ attributes, setAttributes }) {
 			<RichText
 				{...useBlockProps({
 					className: `text-box-align-${alignment}`,
+					style: {
+						backgroundColor,
+					}
 				})}
 				placeholder={__('Type something...', 'text-block')}
 				tagName="h4"
@@ -97,7 +78,6 @@ export default function Edit({ attributes, setAttributes }) {
 				allowedFormats={[]}
 				value={text}
 				onChange={richTextHandler}
-				style={{ textAlign: alignment }}
 			/>
 		</>
 	);
