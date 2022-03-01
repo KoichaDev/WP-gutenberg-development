@@ -3,11 +3,21 @@
 
 	@for $i from 1 through 6 {
 		&.has-#{$i}-columns {
-			> .block-editor-inner-blocks
-				> .block-editor-block-list__layout
-				> [data-type="blocks-course/team-member"] {
-				// When subtracting the -20px, that means we are subtracting the width
-				width: calc(100% / #{$i} - 20px);
+			> .block-editor-inner-blocks > .block-editor-block-list__layout > {
+				[data-type="blocks-course/team-member"] {
+					// When subtracting the -20px, that means we are subtracting the width
+					width: calc(100% / #{$i} - 20px);
+				}
+
+				.block-list-appender {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					align-self: stretch;
+					width: calc(100% / #{$i} - 20px);
+					border: 1px dashed;
+					min-height: 70px;
+				}
 			}
 		}
 	}
