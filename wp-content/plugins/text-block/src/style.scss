@@ -1,4 +1,12 @@
 .wp-block-block-course-text-block {
+	&.is-style-squared {
+		border-radius: 0;
+	}
+
+	&.is-style-rounded {
+		border-radius: 10px;
+	}
+
 	.text-box-title {
 		margin: 0;
 	}

@@ -48,7 +48,7 @@ function blocks_theme_setup() {
 	]);
 
 	// Disabling the WP given us the custome color option
-	add_theme_support( 'disable-custom-colors' );
+	// add_theme_support( 'disable-custom-colors' );
 
 
 	add_theme_support('editor-gradient-presets', [
@@ -67,7 +67,7 @@ function blocks_theme_setup() {
 
 		
 	/* This is a way to disable the custom gradient feature in Gutenberg. */
-	add_theme_support( 'disable-custom-gradients' );
+	// add_theme_support( 'disable-custom-gradients' );
 
 	add_theme_support( 'editor-font-sizes', array(
 				array(

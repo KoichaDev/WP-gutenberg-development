@@ -1,6 +1,12 @@
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
+.wp-block-block-course-text-block.is-style-squared {
+  border-radius: 0;
+}
+.wp-block-block-course-text-block.is-style-rounded {
+  border-radius: 10px;
+}
 .wp-block-block-course-text-block .text-box-title {
   margin: 0;
 }
