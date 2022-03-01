@@ -1,12 +1,34 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.wp-block-blocks-course-team-members {
+	display: flex;
+	flex-wrap: wrap;
+	// The -10px is to fix the margin gap of the element based on the margin 10px of .wp-block-blocks-course-team-member
+	margin-left: -10px;
+	margin-right: -10px;
 
-.wp-block-create-block-blocks-course-team-member {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	@for $i from 1 through 6 {
+		&.has-#{$i}-columns {
+			.wp-block-blocks-course-team-member {
+				// When subtracting the -20px, that means we are subtracting the width
+				width: calc(100% / #{$i} - 20px);
+			}
+		}
+	}
+	.wp-block-blocks-course-team-member {
+		margin: 10px;
+
+		h4 {
+			margin: 0;
+			color: #222;
+			font-size: 1.375rem;
+			font-weight: bold;
+		}
+
+		p {
+			color: #565656;
+			font-size: 1rem;
+			font-weight: 300;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+	}
 }

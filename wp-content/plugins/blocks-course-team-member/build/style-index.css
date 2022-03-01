@@ -1,16 +1,45 @@
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-.wp-block-create-block-blocks-course-team-member {
-  background-color: #21759b;
-  color: #fff;
-  padding: 2px;
+.wp-block-blocks-course-team-members {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.wp-block-blocks-course-team-members.has-1-columns .wp-block-blocks-course-team-member {
+  width: calc(100% / 1 - 20px);
+}
+.wp-block-blocks-course-team-members.has-2-columns .wp-block-blocks-course-team-member {
+  width: calc(100% / 2 - 20px);
+}
+.wp-block-blocks-course-team-members.has-3-columns .wp-block-blocks-course-team-member {
+  width: calc(100% / 3 - 20px);
+}
+.wp-block-blocks-course-team-members.has-4-columns .wp-block-blocks-course-team-member {
+  width: calc(100% / 4 - 20px);
+}
+.wp-block-blocks-course-team-members.has-5-columns .wp-block-blocks-course-team-member {
+  width: calc(100% / 5 - 20px);
+}
+.wp-block-blocks-course-team-members.has-6-columns .wp-block-blocks-course-team-member {
+  width: calc(100% / 6 - 20px);
+}
+.wp-block-blocks-course-team-members .wp-block-blocks-course-team-member {
+  margin: 10px;
+}
+.wp-block-blocks-course-team-members .wp-block-blocks-course-team-member h4 {
+  margin: 0;
+  color: #222;
+  font-size: 1.375rem;
+  font-weight: bold;
+}
+.wp-block-blocks-course-team-members .wp-block-blocks-course-team-member p {
+  color: #565656;
+  font-size: 1rem;
+  font-weight: 300;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 /*# sourceMappingURL=style-index.css.map*/
