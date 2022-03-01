@@ -36,6 +36,20 @@
 		> [data-type="blocks-course/team-member"] {
 			margin: 10px;
 
+			.wp-block-blocks-course-team-member-img {
+				position: relative;
+
+				&.is-loading {
+					opacity: 0.3;
+				}
+
+				.components-spinner {
+					position: absolute;
+					inset: 0;
+					margin: auto;
+				}
+			}
+
 			h4 {
 				margin: 0;
 				color: #222;

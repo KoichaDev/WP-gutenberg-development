@@ -3,7 +3,7 @@ import { __ } from "@wordpress/i18n";
 
 // components
 import BlockEditTeamMember from "./BlockEditTeamMember";
-import BlockSaveTeamMember from './BlockSaveTeamMember'
+import BlockSaveTeamMember from "./BlockSaveTeamMember";
 
 registerBlockType("blocks-course/team-member", {
     title: __("Team Member", "team-member"),
@@ -24,6 +24,22 @@ registerBlockType("blocks-course/team-member", {
             type: "string",
             source: "html",
             selector: "p",
+        },
+        id: {
+            type: "number",
+        },
+        alt: {
+            type: "string",
+            source: "attribute", // Will be stored in the alt attribute of img-tag element
+            selector: "img",
+            attribute: "alt",
+            default: "",
+        },
+        url: {
+            type: "string",
+            source: "attribute",
+            selector: "img",
+            attribute: "src",
         },
     },
     edit: BlockEditTeamMember,
