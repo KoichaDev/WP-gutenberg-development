@@ -1,7 +1,7 @@
 import { registerBlockType } from "@wordpress/blocks";
 
 // components
-import './components/TeamMembers/index'
+import './Blocks/TeamMembers/index'
 
 import "./style.scss";
 

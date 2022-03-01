@@ -2,29 +2,139 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/components/TeamMembers/index.js":
-/*!*********************************************!*\
-  !*** ./src/components/TeamMembers/index.js ***!
-  \*********************************************/
+/***/ "./src/Blocks/TeamMembers/BlockEditTeamMember.js":
+/*!*******************************************************!*\
+  !*** ./src/Blocks/TeamMembers/BlockEditTeamMember.js ***!
+  \*******************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)("blocks-course/team-member", {
-  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Team Member", "team-member"),
-  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("A Team Member Item", "team-members"),
+
+const BlockEditTeamMember = props => {
+  const {
+    attributes,
+    setAttributes
+  } = props;
+  const {
+    name,
+    bio
+  } = attributes; // prettier-ignore
+
+  const onChangeNameHandler = nameValues => setAttributes({
+    name: nameValues
+  }); // prettier-ignore
+
+
+  const onChangeBioHandler = bioValues => setAttributes({
+    bio: bioValues
+  });
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Member name", "team-member"),
+    tagName: "h4",
+    value: name,
+    onChange: onChangeNameHandler,
+    allowedFormats: []
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Member Bio", "team-member"),
+    tagName: "p",
+    value: bio,
+    onChange: onChangeBioHandler,
+    allowedFormats: []
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (BlockEditTeamMember);
+
+/***/ }),
+
+/***/ "./src/Blocks/TeamMembers/BlockSaveTeamMember.js":
+/*!*******************************************************!*\
+  !*** ./src/Blocks/TeamMembers/BlockSaveTeamMember.js ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const BlockSaveTeamMember = _ref => {
+  let {
+    attributes
+  } = _ref;
+  const {
+    name,
+    bio
+  } = attributes;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+    tagName: "h4",
+    value: name
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+    tagName: "p",
+    value: bio
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (BlockSaveTeamMember);
+
+/***/ }),
+
+/***/ "./src/Blocks/TeamMembers/index.js":
+/*!*****************************************!*\
+  !*** ./src/Blocks/TeamMembers/index.js ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _BlockEditTeamMember__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BlockEditTeamMember */ "./src/Blocks/TeamMembers/BlockEditTeamMember.js");
+/* harmony import */ var _BlockSaveTeamMember__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BlockSaveTeamMember */ "./src/Blocks/TeamMembers/BlockSaveTeamMember.js");
+
+ // components
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)("blocks-course/team-member", {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Team Member", "team-member"),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("A Team Member Item", "team-members"),
   icon: "admin-users",
   parent: ["blocks-course/team-members"],
-  edit: () => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Hello World (Edit)"),
-  save: () => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Hello World (Saved)")
+  supports: {
+    reusable: false,
+    //removing this block as reusable
+    html: false //removing this block to edit the HTMl itself
+
+  },
+  attributes: {
+    name: {
+      type: "string",
+      source: "html",
+      selector: "h4"
+    },
+    bio: {
+      type: "string",
+      source: "html",
+      selector: "p"
+    }
+  },
+  edit: _BlockEditTeamMember__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: _BlockSaveTeamMember__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 
 /***/ }),
@@ -64,7 +174,7 @@ function Edit() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_TeamMembers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TeamMembers/index */ "./src/components/TeamMembers/index.js");
+/* harmony import */ var _Blocks_TeamMembers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Blocks/TeamMembers/index */ "./src/Blocks/TeamMembers/index.js");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./save */ "./src/save.js");
