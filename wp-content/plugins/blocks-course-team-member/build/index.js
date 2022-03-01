@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/Blocks/TeamMembers/BlockEditTeamMember.js":
-/*!*******************************************************!*\
-  !*** ./src/Blocks/TeamMembers/BlockEditTeamMember.js ***!
-  \*******************************************************/
+/***/ "./src/components/TeamMembers/BlockEditTeamMember.js":
+/*!***********************************************************!*\
+  !*** ./src/components/TeamMembers/BlockEditTeamMember.js ***!
+  \***********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -57,10 +57,10 @@ const BlockEditTeamMember = props => {
 
 /***/ }),
 
-/***/ "./src/Blocks/TeamMembers/BlockSaveTeamMember.js":
-/*!*******************************************************!*\
-  !*** ./src/Blocks/TeamMembers/BlockSaveTeamMember.js ***!
-  \*******************************************************/
+/***/ "./src/components/TeamMembers/BlockSaveTeamMember.js":
+/*!***********************************************************!*\
+  !*** ./src/components/TeamMembers/BlockSaveTeamMember.js ***!
+  \***********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -92,10 +92,10 @@ const BlockSaveTeamMember = _ref => {
 
 /***/ }),
 
-/***/ "./src/Blocks/TeamMembers/index.js":
-/*!*****************************************!*\
-  !*** ./src/Blocks/TeamMembers/index.js ***!
-  \*****************************************/
+/***/ "./src/components/TeamMembers/index.js":
+/*!*********************************************!*\
+  !*** ./src/components/TeamMembers/index.js ***!
+  \*********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -103,8 +103,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _BlockEditTeamMember__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BlockEditTeamMember */ "./src/Blocks/TeamMembers/BlockEditTeamMember.js");
-/* harmony import */ var _BlockSaveTeamMember__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BlockSaveTeamMember */ "./src/Blocks/TeamMembers/BlockSaveTeamMember.js");
+/* harmony import */ var _BlockEditTeamMember__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BlockEditTeamMember */ "./src/components/TeamMembers/BlockEditTeamMember.js");
+/* harmony import */ var _BlockSaveTeamMember__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BlockSaveTeamMember */ "./src/components/TeamMembers/BlockSaveTeamMember.js");
 
  // components
 
@@ -153,14 +153,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+
+//prettier-ignore
 
 
 
-function Edit() {
-  // This will generate 2x team member blocks
-  const teamMemberTemplate = [["blocks-course/team-member"], ["blocks-course/team-member"]];
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
+
+function Edit(_ref) {
+  let {
+    attributes,
+    setAttributes
+  } = _ref;
+  const {
+    columns
+  } = attributes; // prettier-ignore
+
+  const onChangeColumnsHandler = columnValue => setAttributes({
+    columns: columnValue
+  }); // This will generate 3x team member blocks
+
+
+  const teamMemberTemplate = [["blocks-course/team-member"], ["blocks-course/team-member"], ["blocks-course/team-member"]];
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
+    className: `has-${columns}-columns`
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Columns", "team-members"),
+    value: columns,
+    onChange: onChangeColumnsHandler,
+    min: 1,
+    max: 6
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
     allowedBlocks: ["blocks-course/team-member"],
     template: teamMemberTemplate // templateLock="all" // This prevents user to adding/removing or dragging the blocks
 
@@ -178,7 +205,7 @@ function Edit() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Blocks_TeamMembers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Blocks/TeamMembers/index */ "./src/Blocks/TeamMembers/index.js");
+/* harmony import */ var _components_TeamMembers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TeamMembers/index */ "./src/components/TeamMembers/index.js");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./save */ "./src/save.js");
@@ -214,8 +241,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function save() {
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null));
+function save(_ref) {
+  let {
+    attributes
+  } = _ref;
+  const {
+    columns
+  } = attributes;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
+    className: `has-${columns}-columns`
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null));
 }
 
 /***/ }),
@@ -261,6 +296,16 @@ module.exports = window["wp"]["blockEditor"];
 /***/ (function(module) {
 
 module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["components"];
 
 /***/ }),
 
