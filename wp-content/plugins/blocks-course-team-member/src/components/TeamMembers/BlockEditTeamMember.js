@@ -26,6 +26,14 @@ const BlockEditTeamMember = (props) => {
         return setAttributes({ id: image.id, url: image.url, alt: image.alt })
     };
 
+    const onSelectURLImageHandler = (urlImage) => {
+        setAttributes({
+            id: undefined,
+            url: urlImage,
+            alt: undefined
+        })
+    }
+
     return (
         <div {...useBlockProps()}>
             {url && (
@@ -38,7 +46,8 @@ const BlockEditTeamMember = (props) => {
             <MediaPlaceholder
                 icon="admin-users"
                 onSelect={onSelectImageHandler}
-                //   onSelectURL={ } onError={ }
+                onSelectURL={onSelectURLImageHandler}
+                onError={error => console.log(error)}
                 accept={"image/*"} //Will disable files that is not image
                 allowedTypes={["image"]} // This will show on the computer the files are not image will be disabled (can't be selected)
                 disableMediaButtons={url} // This will disable the media upload if there is a image being selected

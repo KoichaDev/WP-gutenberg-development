@@ -63,6 +63,14 @@ const BlockEditTeamMember = props => {
     });
   };
 
+  const onSelectURLImageHandler = urlImage => {
+    setAttributes({
+      id: undefined,
+      url: urlImage,
+      alt: undefined
+    });
+  };
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(), url && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `wp-block-blocks-course-team-member-img ${(0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) ? ' is-loading' : ''}`
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
@@ -70,8 +78,9 @@ const BlockEditTeamMember = props => {
     alt: alt
   }), (0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaPlaceholder, {
     icon: "admin-users",
-    onSelect: onSelectImageHandler //   onSelectURL={ } onError={ }
-    ,
+    onSelect: onSelectImageHandler,
+    onSelectURL: onSelectURLImageHandler,
+    onError: error => console.log(error),
     accept: "image/*" //Will disable files that is not image
     ,
     allowedTypes: ["image"] // This will show on the computer the files are not image will be disabled (can't be selected)
