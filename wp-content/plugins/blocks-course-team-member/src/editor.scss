@@ -1,9 +1,45 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.wp-block-blocks-course-team-members {
+	display: block;
 
-.wp-block-create-block-blocks-course-team-member {
-	border: 1px dotted #f00;
+	@for $i from 1 through 6 {
+		&.has-#{$i}-columns {
+			> .block-editor-inner-blocks
+				> .block-editor-block-list__layout
+				> [data-type="blocks-course/team-member"] {
+				// When subtracting the -20px, that means we are subtracting the width
+				width: calc(100% / #{$i} - 20px);
+			}
+		}
+	}
+
+	> .block-editor-inner-blocks > .block-editor-block-list__layout {
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -10px;
+		margin-right: -10px;
+
+		[data-type="blocks-course/team-member"] {
+			max-width: none; // the max-width is default styled from the theme editor and we don't want it on our block
+			margin: 0;
+		}
+
+		> [data-type="blocks-course/team-member"] {
+			margin: 10px;
+
+			h4 {
+				margin: 0;
+				color: #222;
+				font-size: 1.375rem;
+				font-weight: bold;
+			}
+
+			p {
+				color: #565656;
+				font-size: 1rem;
+				font-weight: 300;
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+		}
+	}
 }

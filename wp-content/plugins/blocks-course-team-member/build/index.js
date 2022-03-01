@@ -189,6 +189,7 @@ function Edit(_ref) {
     max: 6
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
     allowedBlocks: ["blocks-course/team-member"],
+    orientation: columns === 1 ? "vertical" : "horizontal",
     template: teamMemberTemplate // templateLock="all" // This prevents user to adding/removing or dragging the blocks
 
   }));

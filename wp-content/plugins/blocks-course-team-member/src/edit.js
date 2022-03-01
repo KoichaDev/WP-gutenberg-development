@@ -37,6 +37,7 @@ export default function Edit({ attributes, setAttributes }) {
 			</InspectorControls>
 			<InnerBlocks
 				allowedBlocks={["blocks-course/team-member"]}
+				orientation={columns === 1 ? "vertical" : "horizontal"}
 				template={teamMemberTemplate}
 			// templateLock="all" // This prevents user to adding/removing or dragging the blocks
 			/>
