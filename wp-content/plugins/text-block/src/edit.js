@@ -43,7 +43,7 @@ function Edit(props) {
 					})}
 					className="text-box-title"
 					placeholder={__('Type something...', 'text-block')}
-					tagName="h4"
+					tagName="p"
 					// allowedFormats is allowing what format to use
 					allowedFormats={[]}
 					value={text}

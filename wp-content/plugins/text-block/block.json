@@ -42,7 +42,7 @@
 		"text": {
 			"type": "string",
 			"source": "html",
-			"selector": "h4"
+			"selector": "p"
 		},
 		"alignment": {
 			"type": "string",
