@@ -1,4 +1,4 @@
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect, useRef } from "@wordpress/element";
 import {
     useBlockProps,
     RichText,
@@ -29,6 +29,8 @@ const BlockEditTeamMember = (props) => {
 
     const [blobURL, setBlobURL] = useState(undefined);
 
+    const titleRef = useRef(null);
+
     // This useSelect is equivilant to the wordpress global object:
     // wp.data.select('core').getMedia(imageId). This is to get everything object information of the image
     // prettier-ignore
@@ -45,37 +47,6 @@ const BlockEditTeamMember = (props) => {
         }
     }, []);
 
-    // This is equivalent to the wordpress global object:
-    // wp.data.select("core/block-editor").getSettings()
-    // prettier-ignore
-    const selectImageSizes = useSelect(select => {
-        return select(blockEditorStore).getSettings().imageSizes;
-    }, [])
-
-    const getImageSizeOptions = () => {
-        if (!selectImageObject) return [];
-        const options = [];
-
-        const imageMediaSizes = selectImageObject.media_details.sizes;
-
-        /* This is to get the image size options. */
-        for (const key in imageMediaSizes) {
-            const size = imageMediaSizes[key];
-
-            // prettier-ignore
-            const imageSize = selectImageSizes.find((imageSize) => imageSize.slug === key);
-
-            if (imageSize) {
-                options.push({
-                    label: imageSize.name,
-                    value: size.source_url,
-                });
-            }
-        }
-
-        return options;
-    };
-
     /* This is a way to revoke (basically free the memory and optimize it) the blob URL when the url is changed. */
     useEffect(() => {
         if (isBlobURL(url)) {
@@ -85,6 +56,11 @@ const BlockEditTeamMember = (props) => {
             revokeBlobURL(blobURL);
             setBlobURL(undefined);
         }
+    }, [url]);
+
+    /* This is a way to focus on the title (h4) textarea when the url is changed. */
+    useEffect(() => {
+        titleRef.current.focus()
     }, [url]);
 
     // prettier-ignore
@@ -122,6 +98,37 @@ const BlockEditTeamMember = (props) => {
 
     // prettier-ignore
     const onChangeImageSizeHandler = (newImageURL) => setAttributes({ url: newImageURL });
+
+    // This is equivalent to the wordpress global object:
+    // wp.data.select("core/block-editor").getSettings()
+    // prettier-ignore
+    const selectImageSizes = useSelect(select => {
+        return select(blockEditorStore).getSettings().imageSizes;
+    }, [])
+
+    const getImageSizeOptions = () => {
+        if (!selectImageObject) return [];
+        const options = [];
+
+        const imageMediaSizes = selectImageObject.media_details.sizes;
+
+        /* This is to get the image size options. */
+        for (const key in imageMediaSizes) {
+            const size = imageMediaSizes[key];
+
+            // prettier-ignore
+            const imageSize = selectImageSizes.find((imageSize) => imageSize.slug === key);
+
+            if (imageSize) {
+                options.push({
+                    label: imageSize.name,
+                    value: size.source_url,
+                });
+            }
+        }
+
+        return options;
+    };
 
     return (
         <>
@@ -189,6 +196,7 @@ const BlockEditTeamMember = (props) => {
                     notices={noticeUI}
                 />
                 <RichText
+                    ref={titleRef}
                     placeholder={__("Member name", "team-member")}
                     tagName="h4"
                     value={name}
