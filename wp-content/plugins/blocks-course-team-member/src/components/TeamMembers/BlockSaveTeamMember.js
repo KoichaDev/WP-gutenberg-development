@@ -14,7 +14,7 @@ const BlockSaveTeamMember = ({ attributes }) => {
                 <div className="wp-block-blocks-course-team-member-social-media-links">
                     <ul>
                         {socialLinks.map((socialLink, index) => {
-                            return <li key={index}>
+                            return <li key={index} data-icon={socialLink.icon}>
                                 <a href={socialLink.link}>
                                     <Icon icon={socialLink.icon} />
                                 </a>

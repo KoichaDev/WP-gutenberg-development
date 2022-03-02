@@ -39,10 +39,24 @@ const blockMetaTeamMembers = {
         socialLinks: {
             type: "array",
             default: [
-                { link: "https://facebook.com", icon: "facebook", text: "Facebook" },
-                { link: "https://instagram.com", icon: "instagram", text: "Instagram" },
-            ]
-        }
+                { link: "https://facebook.com", icon: "facebook" },
+                { link: "https://instagram.com", icon: "instagram" },
+            ],
+            source: "query",
+            selector: ".wp-block-blocks-course-team-member-social-media-links ul li",
+            query: {
+                icon: {
+                    source: "attribute",
+                    attribute: "data-icon", //this attribute lives inside our seletor on line 46
+                },
+                link: {
+                    source: "attribute",
+                    selector: "a", // this needs to be specified because the anchor-tag lives in it's own element and is child of line 46
+                    attribute: "href",
+                },
+                text: {},
+            },
+        },
     },
 };
 

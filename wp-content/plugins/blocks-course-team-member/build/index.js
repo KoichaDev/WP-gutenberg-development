@@ -333,13 +333,27 @@ const blockMetaTeamMembers = {
       type: "array",
       default: [{
         link: "https://facebook.com",
-        icon: "facebook",
-        text: "Facebook"
+        icon: "facebook"
       }, {
         link: "https://instagram.com",
-        icon: "instagram",
-        text: "Instagram"
-      }]
+        icon: "instagram"
+      }],
+      source: "query",
+      selector: ".wp-block-blocks-course-team-member-social-media-links ul li",
+      query: {
+        icon: {
+          source: "attribute",
+          attribute: "data-icon" //this attribute lives inside our seletor on line 46
+
+        },
+        link: {
+          source: "attribute",
+          selector: "a",
+          // this needs to be specified because the anchor-tag lives in it's own element and is child of line 46
+          attribute: "href"
+        },
+        text: {}
+      }
     }
   }
 };
@@ -390,7 +404,8 @@ const BlockSaveTeamMember = _ref => {
     className: "wp-block-blocks-course-team-member-social-media-links"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, socialLinks.map((socialLink, index) => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-      key: index
+      key: index,
+      "data-icon": socialLink.icon
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       href: socialLink.link
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
