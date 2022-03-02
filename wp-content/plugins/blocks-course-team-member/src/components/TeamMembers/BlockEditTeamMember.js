@@ -8,12 +8,13 @@ import {
 } from "@wordpress/block-editor";
 
 import { isBlobURL, revokeBlobURL } from "@wordpress/blob";
-import { Spinner, withNotices } from "@wordpress/components";
+import { Spinner, withNotices, ToolbarButton } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
     const { attributes, setAttributes, noticeOperations, noticeUI } = props;
     const { name, bio, id: imageid, url, alt } = attributes;
+
     const [blobURL, setBlobURL] = useState(undefined);
 
     useEffect(() => {
@@ -53,6 +54,10 @@ const BlockEditTeamMember = (props) => {
         noticeOperations.createErrorNotice(messageError);
     };
 
+    // pretier-ignore
+    const onClickRemoveImageHandler = () =>
+        setAttributes({ id: undefined, url: undefined, alt: "" });
+
     const onSelectURLImageHandler = (urlImage) => {
         setAttributes({
             id: undefined,
@@ -63,18 +68,25 @@ const BlockEditTeamMember = (props) => {
 
     return (
         <>
-            <BlockControls group="inline">
-                {/* This component will ensure we can replace the old image value with new one */}
-                <MediaReplaceFlow
-                    name={__("Replace Image", "team-member")}
-                    onSelect={onSelectImageHandler}
-                    onSelectURL={onSelectURLImageHandler}
-                    onError={onUploadErrorHandler}
-                    accept={"image/*"} //Will disable files that is not image
-                    mediaId={imageid}
-                    mediaUrl={url}
-                />
-            </BlockControls>
+            {url && (
+                <BlockControls group="inline">
+                    {/* This component will ensure we can replace the old image value with new one */}
+                    <MediaReplaceFlow
+                        name={__("Replace Image", "team-member")}
+                        onSelect={onSelectImageHandler}
+                        onSelectURL={onSelectURLImageHandler}
+                        onError={onUploadErrorHandler}
+                        accept={"image/*"} //Will disable files that is not image
+                        mediaId={imageid}
+                        mediaUrl={url}
+                    />
+
+                    <ToolbarButton onClick={onClickRemoveImageHandler}>
+                        {__("Remove Image", "team-members")}
+                    </ToolbarButton>
+                </BlockControls>
+            )}
+
             <div {...useBlockProps()}>
                 {url && (
                     <div
