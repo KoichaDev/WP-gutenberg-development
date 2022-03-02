@@ -1,17 +1,18 @@
-import { useEffect } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
 import {
     useBlockProps,
     RichText,
     MediaPlaceholder,
 } from "@wordpress/block-editor";
 
-import { isBlobURL } from "@wordpress/blob";
+import { isBlobURL, revokeBlobURL } from "@wordpress/blob";
 import { Spinner, withNotices } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
     const { attributes, setAttributes, noticeOperations, noticeUI } = props;
     const { name, bio, id: imageid, url, alt } = attributes;
+    const [blobURL, setBlobURL] = useState(undefined);
 
     useEffect(() => {
         // checking if there is no image ID
@@ -19,6 +20,17 @@ const BlockEditTeamMember = (props) => {
             setAttributes({ url: undefined, alt: "" });
         }
     }, []);
+
+    /* This is a way to revoke (basically free the memory and optimize it) the blob URL when the url is changed. */
+    useEffect(() => {
+        if (isBlobURL(url)) {
+            setBlobURL(url);
+        } else {
+            // if it is not blob URL, but normal URL, then we need to revoke the old blobl URL
+            revokeBlobURL(blobURL)
+            setBlobURL(undefined)
+        }
+    }, [url]);
 
     // prettier-ignore
     const onChangeNameHandler = (nameValues) => setAttributes({ name: nameValues });

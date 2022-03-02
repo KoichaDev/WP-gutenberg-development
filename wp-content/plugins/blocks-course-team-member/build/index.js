@@ -40,6 +40,7 @@ const BlockEditTeamMember = props => {
     url,
     alt
   } = attributes;
+  const [blobURL, setBlobURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // checking if there is no image ID
     if (!imageid && (0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url)) {
@@ -48,7 +49,18 @@ const BlockEditTeamMember = props => {
         alt: ""
       });
     }
-  }, []); // prettier-ignore
+  }, []);
+  /* This is a way to revoke (basically free the memory and optimize it) the blob URL when the url is changed. */
+
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if ((0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url)) {
+      setBlobURL(url);
+    } else {
+      // if it is not blob URL, but normal URL, then we need to revoke the old blobl URL
+      (0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.revokeBlobURL)(blobURL);
+      setBlobURL(undefined);
+    }
+  }, [url]); // prettier-ignore
 
   const onChangeNameHandler = nameValues => setAttributes({
     name: nameValues
