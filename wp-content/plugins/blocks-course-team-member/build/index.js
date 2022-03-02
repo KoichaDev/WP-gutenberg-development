@@ -28,7 +28,10 @@ __webpack_require__.r(__webpack_exports__);
 const BlockEditTeamMember = props => {
   const {
     attributes,
-    setAttributes
+    setAttributes,
+    noticeOperations,
+    noticeList,
+    noticeUI
   } = props;
   const {
     name,
@@ -63,6 +66,11 @@ const BlockEditTeamMember = props => {
     });
   };
 
+  const onUploadErrorHandler = messageError => {
+    noticeOperations.removeAllNotices();
+    noticeOperations.createErrorNotice(messageError);
+  };
+
   const onSelectURLImageHandler = urlImage => {
     setAttributes({
       id: undefined,
@@ -72,7 +80,7 @@ const BlockEditTeamMember = props => {
   };
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(), url && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: `wp-block-blocks-course-team-member-img ${(0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) ? ' is-loading' : ''}`
+    className: `wp-block-blocks-course-team-member-img ${(0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) ? " is-loading" : ""}`
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: url,
     alt: alt
@@ -80,13 +88,14 @@ const BlockEditTeamMember = props => {
     icon: "admin-users",
     onSelect: onSelectImageHandler,
     onSelectURL: onSelectURLImageHandler,
-    onError: error => console.log(error),
+    onError: onUploadErrorHandler,
     accept: "image/*" //Will disable files that is not image
     ,
     allowedTypes: ["image"] // This will show on the computer the files are not image will be disabled (can't be selected)
     ,
     disableMediaButtons: url // This will disable the media upload if there is a image being selected
-
+    ,
+    notices: noticeUI
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Member name", "team-member"),
     tagName: "h4",
@@ -102,7 +111,7 @@ const BlockEditTeamMember = props => {
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (BlockEditTeamMember);
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.withNotices)(BlockEditTeamMember));
 
 /***/ }),
 

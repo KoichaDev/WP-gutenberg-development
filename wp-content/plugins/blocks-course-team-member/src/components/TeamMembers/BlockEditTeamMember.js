@@ -5,11 +5,12 @@ import {
 } from "@wordpress/block-editor";
 
 import { isBlobURL } from "@wordpress/blob";
-import { Spinner } from "@wordpress/components";
+import { Spinner, withNotices } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
-    const { attributes, setAttributes } = props;
+    const { attributes, setAttributes, noticeOperations, noticeList, noticeUI } =
+        props;
     const { name, bio, url, alt } = attributes;
 
     // prettier-ignore
@@ -26,31 +27,39 @@ const BlockEditTeamMember = (props) => {
         return setAttributes({ id: image.id, url: image.url, alt: image.alt })
     };
 
+    const onUploadErrorHandler = (messageError) => {
+        noticeOperations.removeAllNotices();
+        noticeOperations.createErrorNotice(messageError);
+    };
+
     const onSelectURLImageHandler = (urlImage) => {
         setAttributes({
             id: undefined,
             url: urlImage,
-            alt: undefined
-        })
-    }
+            alt: undefined,
+        });
+    };
 
     return (
         <div {...useBlockProps()}>
             {url && (
-                <div className={`wp-block-blocks-course-team-member-img ${isBlobURL(url) ? ' is-loading' : ''}`}>
+                <div
+                    className={`wp-block-blocks-course-team-member-img ${isBlobURL(url) ? " is-loading" : ""
+                        }`}
+                >
                     <img src={url} alt={alt} />
                     {isBlobURL(url) && <Spinner />}
                 </div>
-            )
-            }
+            )}
             <MediaPlaceholder
                 icon="admin-users"
                 onSelect={onSelectImageHandler}
                 onSelectURL={onSelectURLImageHandler}
-                onError={error => console.log(error)}
+                onError={onUploadErrorHandler}
                 accept={"image/*"} //Will disable files that is not image
                 allowedTypes={["image"]} // This will show on the computer the files are not image will be disabled (can't be selected)
                 disableMediaButtons={url} // This will disable the media upload if there is a image being selected
+                notices={noticeUI}
             />
             <RichText
                 placeholder={__("Member name", "team-member")}
@@ -67,8 +76,8 @@ const BlockEditTeamMember = (props) => {
                 onChange={onChangeBioHandler}
                 allowedFormats={[]}
             />
-        </div >
+        </div>
     );
 };
 
-export default BlockEditTeamMember;
+export default withNotices(BlockEditTeamMember);
