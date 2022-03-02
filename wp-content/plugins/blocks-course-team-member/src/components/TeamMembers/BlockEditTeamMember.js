@@ -1,3 +1,4 @@
+import { useEffect } from "@wordpress/element";
 import {
     useBlockProps,
     RichText,
@@ -9,9 +10,15 @@ import { Spinner, withNotices } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
-    const { attributes, setAttributes, noticeOperations, noticeList, noticeUI } =
-        props;
-    const { name, bio, url, alt } = attributes;
+    const { attributes, setAttributes, noticeOperations, noticeUI } = props;
+    const { name, bio, id: imageid, url, alt } = attributes;
+
+    useEffect(() => {
+        // checking if there is no image ID
+        if (!imageid && isBlobURL(url)) {
+            setAttributes({ url: undefined, alt: "" });
+        }
+    }, []);
 
     // prettier-ignore
     const onChangeNameHandler = (nameValues) => setAttributes({ name: nameValues });

@@ -25,20 +25,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const BlockEditTeamMember = props => {
   const {
     attributes,
     setAttributes,
     noticeOperations,
-    noticeList,
     noticeUI
   } = props;
   const {
     name,
     bio,
+    id: imageid,
     url,
     alt
-  } = attributes; // prettier-ignore
+  } = attributes;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // checking if there is no image ID
+    if (!imageid && (0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url)) {
+      setAttributes({
+        url: undefined,
+        alt: ""
+      });
+    }
+  }, []); // prettier-ignore
 
   const onChangeNameHandler = nameValues => setAttributes({
     name: nameValues
