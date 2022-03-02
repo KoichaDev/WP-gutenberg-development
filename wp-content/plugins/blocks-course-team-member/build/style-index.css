@@ -28,6 +28,12 @@
 .wp-block-blocks-course-team-members .wp-block-blocks-course-team-member {
   margin: 10px;
 }
+.wp-block-blocks-course-team-members .wp-block-blocks-course-team-member img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1.25em;
+}
 .wp-block-blocks-course-team-members .wp-block-blocks-course-team-member h4 {
   margin: 0;
   color: #222;
