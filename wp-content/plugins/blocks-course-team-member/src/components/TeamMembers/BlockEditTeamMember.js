@@ -31,8 +31,11 @@ const BlockEditTeamMember = (props) => {
     const { name, bio, id: imageId, url, alt, socialLinks } = attributes;
 
     const [blobURL, setBlobURL] = useState(undefined);
+    const [selectedSocialMediaLink, setSelectedSocialMediaLink] =
+        useState(undefined);
 
     const previousURL = usePrevious(url);
+    const previousIsSelectedSocialMediaLink = usePrevious(isSelected);
 
     const titleRef = useRef(null);
 
@@ -69,6 +72,13 @@ const BlockEditTeamMember = (props) => {
             titleRef.current.focus();
         }
     }, [url, previousURL]);
+
+    useEffect(() => {
+        if (previousIsSelectedSocialMediaLink && !isSelected) {
+            setSelectedSocialMediaLink(undefined);
+        }
+
+    }, [isSelected, previousIsSelectedSocialMediaLink]);
 
     // prettier-ignore
     const onChangeNameHandler = (nameValues) => setAttributes({ name: nameValues });
@@ -223,8 +233,18 @@ const BlockEditTeamMember = (props) => {
                     <ul>
                         {socialLinks.map((socialLink, index) => {
                             return (
-                                <li key={index}>
-                                    <Icon icon={socialLink.icon} />
+                                <li
+                                    key={index}
+                                    // prettier-ignore
+                                    className={selectedSocialMediaLink === index ? "is-selected" : null}
+                                >
+                                    <button
+                                        type="button"
+                                        aria-label={__(`Edit socia media link`, "team-members")}
+                                        onClick={() => setSelectedSocialMediaLink(index)}
+                                    >
+                                        <Icon icon={socialLink.icon} />
+                                    </button>
                                 </li>
                             );
                         })}

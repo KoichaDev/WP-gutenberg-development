@@ -39,8 +39,8 @@ const blockMetaTeamMembers = {
         socialLinks: {
             type: "array",
             default: [
-                { link: "https://facebook.com", icon: "facebook" },
-                { link: "https://instagram.com", icon: "instagram" },
+                { link: "https://facebook.com", icon: "facebook", text: "Facebook" },
+                { link: "https://instagram.com", icon: "instagram", text: "Instagram" },
             ]
         }
     },

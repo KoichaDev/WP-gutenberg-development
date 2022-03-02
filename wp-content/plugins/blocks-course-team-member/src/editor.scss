@@ -83,12 +83,21 @@
 						color: #4e4e4e;
 					}
 
+					.is-selected {
+						outline: 2px solid rgb(208, 40, 227);
+					}
+
+					button {
+						margin: 0;
+						padding: 0;
+						border: none;
+						background: none;
+						cursor: pointer;
+					}
+
 					.wp-block-blocks-course-team-member-add-icon {
 						button {
-							margin: 0;
-							padding: 0;
 							outline: 1px dashed;
-							border: none;
 							background: none;
 							cursor: pointer;
 						}

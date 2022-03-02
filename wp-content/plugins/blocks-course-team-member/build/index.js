@@ -50,7 +50,9 @@ const BlockEditTeamMember = props => {
     socialLinks
   } = attributes;
   const [blobURL, setBlobURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
+  const [selectedSocialMediaLink, setSelectedSocialMediaLink] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
   const previousURL = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.usePrevious)(url);
+  const previousIsSelectedSocialMediaLink = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.usePrevious)(isSelected);
   const titleRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null); // This useSelect is equivilant to the wordpress global object:
   // wp.data.select('core').getMedia(imageId). This is to get everything object information of the image
   // prettier-ignore
@@ -88,7 +90,12 @@ const BlockEditTeamMember = props => {
     if (url && !previousURL) {
       titleRef.current.focus();
     }
-  }, [url, previousURL]); // prettier-ignore
+  }, [url, previousURL]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (previousIsSelectedSocialMediaLink && !isSelected) {
+      setSelectedSocialMediaLink(undefined);
+    }
+  }, [isSelected, previousIsSelectedSocialMediaLink]); // prettier-ignore
 
   const onChangeNameHandler = nameValues => setAttributes({
     name: nameValues
@@ -234,10 +241,16 @@ const BlockEditTeamMember = props => {
     className: "wp-block-blocks-course-team-member-social-media-links"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, socialLinks.map((socialLink, index) => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-      key: index
+      key: index // prettier-ignore
+      ,
+      className: selectedSocialMediaLink === index ? "is-selected" : null
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      type: "button",
+      "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Edit socia media link`, "team-members"),
+      onClick: () => setSelectedSocialMediaLink(index)
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Icon, {
       icon: socialLink.icon
-    }));
+    })));
   }), isSelected && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "wp-block-blocks-course-team-member-add-icon"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Tooltip, {
@@ -307,10 +320,12 @@ const blockMetaTeamMembers = {
       type: "array",
       default: [{
         link: "https://facebook.com",
-        icon: "facebook"
+        icon: "facebook",
+        text: "Facebook"
       }, {
         link: "https://instagram.com",
-        icon: "instagram"
+        icon: "instagram",
+        text: "Instagram"
       }]
     }
   }

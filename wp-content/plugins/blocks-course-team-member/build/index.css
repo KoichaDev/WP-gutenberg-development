@@ -133,11 +133,18 @@
 .wp-block-blocks-course-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="blocks-course/team-member"] .wp-block-blocks-course-team-member-social-media-links ul span.dashicon {
   color: #4e4e4e;
 }
-.wp-block-blocks-course-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="blocks-course/team-member"] .wp-block-blocks-course-team-member-social-media-links ul .wp-block-blocks-course-team-member-add-icon button {
+.wp-block-blocks-course-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="blocks-course/team-member"] .wp-block-blocks-course-team-member-social-media-links ul .is-selected {
+  outline: 2px solid #d028e3;
+}
+.wp-block-blocks-course-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="blocks-course/team-member"] .wp-block-blocks-course-team-member-social-media-links ul button {
   margin: 0;
   padding: 0;
-  outline: 1px dashed;
   border: none;
+  background: none;
+  cursor: pointer;
+}
+.wp-block-blocks-course-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="blocks-course/team-member"] .wp-block-blocks-course-team-member-social-media-links ul .wp-block-blocks-course-team-member-add-icon button {
+  outline: 1px dashed;
   background: none;
   cursor: pointer;
 }
