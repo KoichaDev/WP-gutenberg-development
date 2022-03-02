@@ -106,6 +106,61 @@ const BlockEditTeamMember = props => {
 
 /***/ }),
 
+/***/ "./src/components/TeamMembers/BlockMetaTeamMembers.js":
+/*!************************************************************!*\
+  !*** ./src/components/TeamMembers/BlockMetaTeamMembers.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+
+const blockMetaTeamMembers = {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Team Member", "team-member"),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("A Team Member Item", "team-members"),
+  icon: "admin-users",
+  parent: ["blocks-course/team-members"],
+  supports: {
+    reusable: false,
+    //removing this block as reusable
+    html: false //removing this block to edit the HTMl itself
+
+  },
+  attributes: {
+    name: {
+      type: "string",
+      source: "html",
+      selector: "h4"
+    },
+    bio: {
+      type: "string",
+      source: "html",
+      selector: "p"
+    },
+    id: {
+      type: "number"
+    },
+    alt: {
+      type: "string",
+      source: "attribute",
+      // Will be stored in the alt attribute of img-tag element
+      selector: "img",
+      attribute: "alt",
+      default: ""
+    },
+    url: {
+      type: "string",
+      source: "attribute",
+      selector: "img",
+      attribute: "src"
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (blockMetaTeamMembers);
+
+/***/ }),
+
 /***/ "./src/components/TeamMembers/BlockSaveTeamMember.js":
 /*!***********************************************************!*\
   !*** ./src/components/TeamMembers/BlockSaveTeamMember.js ***!
@@ -150,55 +205,17 @@ const BlockSaveTeamMember = _ref => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _BlockMetaTeamMembers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BlockMetaTeamMembers */ "./src/components/TeamMembers/BlockMetaTeamMembers.js");
 /* harmony import */ var _BlockEditTeamMember__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BlockEditTeamMember */ "./src/components/TeamMembers/BlockEditTeamMember.js");
 /* harmony import */ var _BlockSaveTeamMember__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BlockSaveTeamMember */ "./src/components/TeamMembers/BlockSaveTeamMember.js");
+// Wordpress dependencies
+ // Block meta
 
  // components
 
 
 
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)("blocks-course/team-member", {
-  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Team Member", "team-member"),
-  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("A Team Member Item", "team-members"),
-  icon: "admin-users",
-  parent: ["blocks-course/team-members"],
-  supports: {
-    reusable: false,
-    //removing this block as reusable
-    html: false //removing this block to edit the HTMl itself
-
-  },
-  attributes: {
-    name: {
-      type: "string",
-      source: "html",
-      selector: "h4"
-    },
-    bio: {
-      type: "string",
-      source: "html",
-      selector: "p"
-    },
-    id: {
-      type: "number"
-    },
-    alt: {
-      type: "string",
-      source: "attribute",
-      // Will be stored in the alt attribute of img-tag element
-      selector: "img",
-      attribute: "alt",
-      default: ""
-    },
-    url: {
-      type: "string",
-      source: "attribute",
-      selector: "img",
-      attribute: "src"
-    }
-  },
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)("blocks-course/team-member", { ..._BlockMetaTeamMembers__WEBPACK_IMPORTED_MODULE_1__["default"],
   edit: _BlockEditTeamMember__WEBPACK_IMPORTED_MODULE_2__["default"],
   save: _BlockSaveTeamMember__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
