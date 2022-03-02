@@ -5,10 +5,17 @@ import {
     MediaPlaceholder,
     BlockControls,
     MediaReplaceFlow,
+    InspectorControls,
 } from "@wordpress/block-editor";
 
 import { isBlobURL, revokeBlobURL } from "@wordpress/blob";
-import { Spinner, withNotices, ToolbarButton } from "@wordpress/components";
+import {
+    Spinner,
+    withNotices,
+    ToolbarButton,
+    PanelBody,
+    TextareaControl,
+} from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
@@ -54,9 +61,11 @@ const BlockEditTeamMember = (props) => {
         noticeOperations.createErrorNotice(messageError);
     };
 
-    // pretier-ignore
-    const onClickRemoveImageHandler = () =>
-        setAttributes({ id: undefined, url: undefined, alt: "" });
+    // prettier-ignore
+    const onClickRemoveImageHandler = () => setAttributes({ id: undefined, url: undefined, alt: "" });
+
+    const onChangeAltImageTextHandler = (altValue) =>
+        setAttributes({ alt: altValue });
 
     const onSelectURLImageHandler = (urlImage) => {
         setAttributes({
@@ -68,6 +77,21 @@ const BlockEditTeamMember = (props) => {
 
     return (
         <>
+            <InspectorControls>
+                <PanelBody title={__("Image settings", "team-members")}>
+                    {url && !isBlobURL(url) && (
+                        <TextareaControl
+                            label={__("Alt Image text", "team-members")}
+                            help={__(
+                                "Alternative text describes your image to people can't see it. Add a short description with its key details.",
+                                "team-members"
+                            )}
+                            value={alt}
+                            onChange={onChangeAltImageTextHandler}
+                        />
+                    )}
+                </PanelBody>
+            </InspectorControls>
             {url && (
                 <BlockControls group="inline">
                     {/* This component will ensure we can replace the old image value with new one */}
