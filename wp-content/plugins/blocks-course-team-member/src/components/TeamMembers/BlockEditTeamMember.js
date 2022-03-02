@@ -18,14 +18,17 @@ import {
     PanelBody,
     TextareaControl,
     SelectControl,
+    Icon,
+    Tooltip,
 } from "@wordpress/components";
 
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
-    const { attributes, setAttributes, noticeOperations, noticeUI } = props;
-    const { name, bio, id: imageId, url, alt } = attributes;
+    // prettier-ignore
+    const { attributes, setAttributes, noticeOperations, noticeUI, isSelected } = props;
+    const { name, bio, id: imageId, url, alt, socialLinks } = attributes;
 
     const [blobURL, setBlobURL] = useState(undefined);
 
@@ -215,6 +218,31 @@ const BlockEditTeamMember = (props) => {
                     onChange={onChangeBioHandler}
                     allowedFormats={[]}
                 />
+
+                <div className="wp-block-blocks-course-team-member-social-media-links">
+                    <ul>
+                        {socialLinks.map((socialLink, index) => {
+                            return (
+                                <li key={index}>
+                                    <Icon icon={socialLink.icon} />
+                                </li>
+                            );
+                        })}
+
+                        {isSelected && (
+                            <li className="wp-block-blocks-course-team-member-add-icon">
+                                <Tooltip text={__("Add Social Link", "team-members")}>
+                                    <button
+                                        type="button"
+                                        aria-label={__("Add Social Link", "team-members")}
+                                    >
+                                        <Icon icon="plus" />
+                                    </button>
+                                </Tooltip>
+                            </li>
+                        )}
+                    </ul>
+                </div>
             </div>
         </>
     );
