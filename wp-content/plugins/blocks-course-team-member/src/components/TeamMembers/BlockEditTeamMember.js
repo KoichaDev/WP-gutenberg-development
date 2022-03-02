@@ -77,7 +77,6 @@ const BlockEditTeamMember = (props) => {
         if (previousIsSelectedSocialMediaLink && !isSelected) {
             setSelectedSocialMediaLink(undefined);
         }
-
     }, [isSelected, previousIsSelectedSocialMediaLink]);
 
     // prettier-ignore
@@ -145,6 +144,16 @@ const BlockEditTeamMember = (props) => {
         }
 
         return options;
+    };
+
+    const addNewSocialMediaIconhandler = () => {
+        setAttributes({
+            socialLinks: [...socialLinks, { icon: "wordpress", link: "" }],
+        });
+
+        // We have to set the length of the element of the array, because next time the components renders, 
+        // the social Links will have 3 items then
+        setSelectedSocialMediaLink(socialLinks.length)
     };
 
     return (
@@ -255,6 +264,7 @@ const BlockEditTeamMember = (props) => {
                                     <button
                                         type="button"
                                         aria-label={__("Add Social Link", "team-members")}
+                                        onClick={addNewSocialMediaIconhandler}
                                     >
                                         <Icon icon="plus" />
                                     </button>

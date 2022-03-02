@@ -182,6 +182,18 @@ const BlockEditTeamMember = props => {
     return options;
   };
 
+  const addNewSocialMediaIconhandler = () => {
+    setAttributes({
+      socialLinks: [...socialLinks, {
+        icon: "wordpress",
+        link: ""
+      }]
+    }); // We have to set the length of the element of the array, because next time the components renders, 
+    // the social Links will have 3 items then
+
+    setSelectedSocialMediaLink(socialLinks.length);
+  };
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Image settings", "team-members")
   }, imageId && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
@@ -257,7 +269,8 @@ const BlockEditTeamMember = props => {
     text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Add Social Link", "team-members")
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     type: "button",
-    "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Add Social Link", "team-members")
+    "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Add Social Link", "team-members"),
+    onClick: addNewSocialMediaIconhandler
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Icon, {
     icon: "plus"
   }))))))));
