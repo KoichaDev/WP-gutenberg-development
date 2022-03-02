@@ -3,6 +3,8 @@ import {
     useBlockProps,
     RichText,
     MediaPlaceholder,
+    BlockControls,
+    MediaReplaceFlow,
 } from "@wordpress/block-editor";
 
 import { isBlobURL, revokeBlobURL } from "@wordpress/blob";
@@ -27,8 +29,8 @@ const BlockEditTeamMember = (props) => {
             setBlobURL(url);
         } else {
             // if it is not blob URL, but normal URL, then we need to revoke the old blobl URL
-            revokeBlobURL(blobURL)
-            setBlobURL(undefined)
+            revokeBlobURL(blobURL);
+            setBlobURL(undefined);
         }
     }, [url]);
 
@@ -60,42 +62,56 @@ const BlockEditTeamMember = (props) => {
     };
 
     return (
-        <div {...useBlockProps()}>
-            {url && (
-                <div
-                    className={`wp-block-blocks-course-team-member-img ${isBlobURL(url) ? " is-loading" : ""
-                        }`}
-                >
-                    <img src={url} alt={alt} />
-                    {isBlobURL(url) && <Spinner />}
-                </div>
-            )}
-            <MediaPlaceholder
-                icon="admin-users"
-                onSelect={onSelectImageHandler}
-                onSelectURL={onSelectURLImageHandler}
-                onError={onUploadErrorHandler}
-                accept={"image/*"} //Will disable files that is not image
-                allowedTypes={["image"]} // This will show on the computer the files are not image will be disabled (can't be selected)
-                disableMediaButtons={url} // This will disable the media upload if there is a image being selected
-                notices={noticeUI}
-            />
-            <RichText
-                placeholder={__("Member name", "team-member")}
-                tagName="h4"
-                value={name}
-                onChange={onChangeNameHandler}
-                allowedFormats={[]}
-            />
+        <>
+            <BlockControls group="inline">
+                {/* This component will ensure we can replace the old image value with new one */}
+                <MediaReplaceFlow
+                    name={__("Replace Image", "team-member")}
+                    onSelect={onSelectImageHandler}
+                    onSelectURL={onSelectURLImageHandler}
+                    onError={onUploadErrorHandler}
+                    accept={"image/*"} //Will disable files that is not image
+                    mediaId={imageid}
+                    mediaUrl={url}
+                />
+            </BlockControls>
+            <div {...useBlockProps()}>
+                {url && (
+                    <div
+                        className={`wp-block-blocks-course-team-member-img ${isBlobURL(url) ? " is-loading" : ""
+                            }`}
+                    >
+                        <img src={url} alt={alt} />
+                        {isBlobURL(url) && <Spinner />}
+                    </div>
+                )}
+                <MediaPlaceholder
+                    icon="admin-users"
+                    onSelect={onSelectImageHandler}
+                    onSelectURL={onSelectURLImageHandler}
+                    onError={onUploadErrorHandler}
+                    accept={"image/*"} //Will disable files that is not image
+                    allowedTypes={["image"]} // This will show on the computer the files are not image will be disabled (can't be selected)
+                    disableMediaButtons={url} // This will disable the media upload if there is a image being selected
+                    notices={noticeUI}
+                />
+                <RichText
+                    placeholder={__("Member name", "team-member")}
+                    tagName="h4"
+                    value={name}
+                    onChange={onChangeNameHandler}
+                    allowedFormats={[]}
+                />
 
-            <RichText
-                placeholder={__("Member Bio", "team-member")}
-                tagName="p"
-                value={bio}
-                onChange={onChangeBioHandler}
-                allowedFormats={[]}
-            />
-        </div>
+                <RichText
+                    placeholder={__("Member Bio", "team-member")}
+                    tagName="p"
+                    value={bio}
+                    onChange={onChangeBioHandler}
+                    allowedFormats={[]}
+                />
+            </div>
+        </>
     );
 };
 
