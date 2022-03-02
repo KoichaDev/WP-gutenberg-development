@@ -188,7 +188,7 @@ const BlockEditTeamMember = props => {
         icon: "wordpress",
         link: ""
       }]
-    }); // We have to set the length of the element of the array, because next time the components renders, 
+    }); // We have to set the length of the element of the array, because next time the components renders,
     // the social Links will have 3 items then
 
     setSelectedSocialMediaLink(socialLinks.length);
@@ -273,7 +273,15 @@ const BlockEditTeamMember = props => {
     onClick: addNewSocialMediaIconhandler
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Icon, {
     icon: "plus"
-  }))))))));
+  })))))), selectedSocialMediaLink !== undefined && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-block-blocks-course-team-member-link-form"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Icon", "text-members")
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("URL", "text-members")
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
+    isDestructive: true
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Remove Link", "text-members")))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.withNotices)(BlockEditTeamMember));

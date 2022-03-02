@@ -148,5 +148,11 @@
   background: none;
   cursor: pointer;
 }
+.wp-block-blocks-course-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="blocks-course/team-member"] .wp-block-blocks-course-team-member-link-form {
+  background: #fff;
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 10px;
+}
 
 /*# sourceMappingURL=index.css.map*/

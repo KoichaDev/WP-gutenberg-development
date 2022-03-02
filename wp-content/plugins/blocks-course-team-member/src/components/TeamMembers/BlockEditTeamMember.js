@@ -20,6 +20,8 @@ import {
     SelectControl,
     Icon,
     Tooltip,
+    TextControl,
+    Button,
 } from "@wordpress/components";
 
 import { useSelect } from "@wordpress/data";
@@ -151,9 +153,9 @@ const BlockEditTeamMember = (props) => {
             socialLinks: [...socialLinks, { icon: "wordpress", link: "" }],
         });
 
-        // We have to set the length of the element of the array, because next time the components renders, 
+        // We have to set the length of the element of the array, because next time the components renders,
         // the social Links will have 3 items then
-        setSelectedSocialMediaLink(socialLinks.length)
+        setSelectedSocialMediaLink(socialLinks.length);
     };
 
     return (
@@ -273,6 +275,15 @@ const BlockEditTeamMember = (props) => {
                         )}
                     </ul>
                 </div>
+
+                {selectedSocialMediaLink !== undefined && (
+                    <div className="wp-block-blocks-course-team-member-link-form">
+                        <TextControl label={__("Icon", "text-members")} />
+                        <TextControl label={__("URL", "text-members")} />
+                        <br />
+                        <Button isDestructive>{__("Remove Link", "text-members")}</Button>
+                    </div>
+                )}
             </div>
         </>
     );
