@@ -6,6 +6,7 @@ import {
     BlockControls,
     MediaReplaceFlow,
     InspectorControls,
+    store as blockEditorStore,
 } from "@wordpress/block-editor";
 
 import { isBlobURL, revokeBlobURL } from "@wordpress/blob";
@@ -15,21 +16,65 @@ import {
     ToolbarButton,
     PanelBody,
     TextareaControl,
+    selectControl,
+    SelectControl,
 } from "@wordpress/components";
+
+import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 
 const BlockEditTeamMember = (props) => {
     const { attributes, setAttributes, noticeOperations, noticeUI } = props;
-    const { name, bio, id: imageid, url, alt } = attributes;
+    const { name, bio, id: imageId, url, alt } = attributes;
 
     const [blobURL, setBlobURL] = useState(undefined);
 
+    // This useSelect is equivilant to the wordpress global object:
+    // wp.data.select('core').getMedia(imageId). This is to get everything object information of the image
+    // prettier-ignore
+    const selectImageObject = useSelect((select) => {
+        const { getMedia } = select("core");
+
+        return imageId ? getMedia(imageId) : null;
+    }, [imageId]); // the imageId is the dependency that will check for this custom hook. It's like useEffect
+
     useEffect(() => {
         // checking if there is no image ID
-        if (!imageid && isBlobURL(url)) {
+        if (!imageId && isBlobURL(url)) {
             setAttributes({ url: undefined, alt: "" });
         }
     }, []);
+
+    // This is equivalent to the wordpress global object:
+    // wp.data.select("core/block-editor").getSettings()
+    // prettier-ignore
+    const selectImageSizes = useSelect(select => {
+        return select(blockEditorStore).getSettings().imageSizes;
+    }, [])
+
+    const getImageSizeOptions = () => {
+        if (!selectImageObject) return [];
+        const options = [];
+
+        const imageMediaSizes = selectImageObject.media_details.sizes;
+
+        /* This is to get the image size options. */
+        for (const key in imageMediaSizes) {
+            const size = imageMediaSizes[key];
+
+            // prettier-ignore
+            const imageSize = selectImageSizes.find((imageSize) => imageSize.slug === key);
+
+            if (imageSize) {
+                options.push({
+                    label: imageSize.name,
+                    value: size.source_url,
+                });
+            }
+        }
+
+        return options;
+    };
 
     /* This is a way to revoke (basically free the memory and optimize it) the blob URL when the url is changed. */
     useEffect(() => {
@@ -64,8 +109,8 @@ const BlockEditTeamMember = (props) => {
     // prettier-ignore
     const onClickRemoveImageHandler = () => setAttributes({ id: undefined, url: undefined, alt: "" });
 
-    const onChangeAltImageTextHandler = (altValue) =>
-        setAttributes({ alt: altValue });
+    // prettier-ignore
+    const onChangeAltImageTextHandler = (altValue) => setAttributes({ alt: altValue });
 
     const onSelectURLImageHandler = (urlImage) => {
         setAttributes({
@@ -75,10 +120,22 @@ const BlockEditTeamMember = (props) => {
         });
     };
 
+    // prettier-ignore
+    const onChangeImageSizeHandler = (newImageURL) => setAttributes({ url: newImageURL });
+
     return (
         <>
             <InspectorControls>
                 <PanelBody title={__("Image settings", "team-members")}>
+                    {imageId && (
+                        <SelectControl
+                            label={__("Image Size", "team-members")}
+                            options={getImageSizeOptions()}
+                            value={url}
+                            onChange={onChangeImageSizeHandler}
+                        />
+                    )}
+
                     {url && !isBlobURL(url) && (
                         <TextareaControl
                             label={__("Alt Image text", "team-members")}
@@ -101,7 +158,7 @@ const BlockEditTeamMember = (props) => {
                         onSelectURL={onSelectURLImageHandler}
                         onError={onUploadErrorHandler}
                         accept={"image/*"} //Will disable files that is not image
-                        mediaId={imageid}
+                        mediaId={imageId}
                         mediaUrl={url}
                     />
 

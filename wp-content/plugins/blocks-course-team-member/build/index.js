@@ -17,8 +17,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blob__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -36,21 +39,60 @@ const BlockEditTeamMember = props => {
   const {
     name,
     bio,
-    id: imageid,
+    id: imageId,
     url,
     alt
   } = attributes;
-  const [blobURL, setBlobURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
+  const [blobURL, setBlobURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined); // This useSelect is equivilant to the wordpress global object:
+  // wp.data.select('core').getMedia(imageId). This is to get everything object information of the image
+  // prettier-ignore
+
+  const selectImageObject = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    const {
+      getMedia
+    } = select("core");
+    return imageId ? getMedia(imageId) : null;
+  }, [imageId]); // the imageId is the dependency that will check for this custom hook. It's like useEffect
+
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // checking if there is no image ID
-    if (!imageid && (0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url)) {
+    if (!imageId && (0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url)) {
       setAttributes({
         url: undefined,
         alt: ""
       });
     }
+  }, []); // This is equivalent to the wordpress global object:
+  // wp.data.select("core/block-editor").getSettings()
+  // prettier-ignore
+
+  const selectImageSizes = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    return select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.store).getSettings().imageSizes;
   }, []);
+
+  const getImageSizeOptions = () => {
+    if (!selectImageObject) return [];
+    const options = [];
+    const imageMediaSizes = selectImageObject.media_details.sizes;
+    /* This is to get the image size options. */
+
+    for (const key in imageMediaSizes) {
+      const size = imageMediaSizes[key]; // prettier-ignore
+
+      const imageSize = selectImageSizes.find(imageSize => imageSize.slug === key);
+
+      if (imageSize) {
+        options.push({
+          label: imageSize.name,
+          value: size.source_url
+        });
+      }
+    }
+
+    return options;
+  };
   /* This is a way to revoke (basically free the memory and optimize it) the blob URL when the url is changed. */
+
 
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if ((0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url)) {
@@ -98,7 +140,8 @@ const BlockEditTeamMember = props => {
     id: undefined,
     url: undefined,
     alt: ""
-  });
+  }); // prettier-ignore
+
 
   const onChangeAltImageTextHandler = altValue => setAttributes({
     alt: altValue
@@ -110,29 +153,39 @@ const BlockEditTeamMember = props => {
       url: urlImage,
       alt: undefined
     });
-  };
+  }; // prettier-ignore
+
+
+  const onChangeImageSizeHandler = newImageURL => setAttributes({
+    url: newImageURL
+  });
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Image settings", "team-members")
-  }, url && !(0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Alt Image text", "team-members"),
-    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Alternative text describes your image to people can't see it. Add a short description with its key details.", "team-members"),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Image settings", "team-members")
+  }, imageId && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Image Size", "team-members"),
+    options: getImageSizeOptions(),
+    value: url,
+    onChange: onChangeImageSizeHandler
+  }), url && !(0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextareaControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Alt Image text", "team-members"),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Alternative text describes your image to people can't see it. Add a short description with its key details.", "team-members"),
     value: alt,
     onChange: onChangeAltImageTextHandler
   }))), url && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.BlockControls, {
     group: "inline"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaReplaceFlow, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Replace Image", "team-member"),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Replace Image", "team-member"),
     onSelect: onSelectImageHandler,
     onSelectURL: onSelectURLImageHandler,
     onError: onUploadErrorHandler,
     accept: "image/*" //Will disable files that is not image
     ,
-    mediaId: imageid,
+    mediaId: imageId,
     mediaUrl: url
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
     onClick: onClickRemoveImageHandler
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Remove Image", "team-members"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(), url && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Remove Image", "team-members"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(), url && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `wp-block-blocks-course-team-member-img ${(0,_wordpress_blob__WEBPACK_IMPORTED_MODULE_2__.isBlobURL)(url) ? " is-loading" : ""}`
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: url,
@@ -150,13 +203,13 @@ const BlockEditTeamMember = props => {
     ,
     notices: noticeUI
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Member name", "team-member"),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Member name", "team-member"),
     tagName: "h4",
     value: name,
     onChange: onChangeNameHandler,
     allowedFormats: []
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Member Bio", "team-member"),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Member Bio", "team-member"),
     tagName: "p",
     value: bio,
     onChange: onChangeBioHandler,
@@ -469,6 +522,16 @@ module.exports = window["wp"]["blocks"];
 /***/ (function(module) {
 
 module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["data"];
 
 /***/ }),
 
