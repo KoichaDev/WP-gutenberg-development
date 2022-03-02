@@ -10,13 +10,13 @@ import {
 } from "@wordpress/block-editor";
 
 import { isBlobURL, revokeBlobURL } from "@wordpress/blob";
+import { usePrevious } from "@wordpress/compose";
 import {
     Spinner,
     withNotices,
     ToolbarButton,
     PanelBody,
     TextareaControl,
-    selectControl,
     SelectControl,
 } from "@wordpress/components";
 
@@ -28,6 +28,8 @@ const BlockEditTeamMember = (props) => {
     const { name, bio, id: imageId, url, alt } = attributes;
 
     const [blobURL, setBlobURL] = useState(undefined);
+
+    const previousURL = usePrevious(url);
 
     const titleRef = useRef(null);
 
@@ -60,8 +62,10 @@ const BlockEditTeamMember = (props) => {
 
     /* This is a way to focus on the title (h4) textarea when the url is changed. */
     useEffect(() => {
-        titleRef.current.focus()
-    }, [url]);
+        if (url && !previousURL) {
+            titleRef.current.focus();
+        }
+    }, [url, previousURL]);
 
     // prettier-ignore
     const onChangeNameHandler = (nameValues) => setAttributes({ name: nameValues });
