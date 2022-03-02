@@ -18,6 +18,7 @@
 		"@wordpress/scripts": "^22.0.1"
 	},
 	"dependencies": {
+		"@dnd-kit/core": "^5.0.1",
 		"@wordpress/blob": "^3.3.1",
 		"@wordpress/block-editor": "^8.2.0",
 		"@wordpress/blocks": "^11.2.2",

@@ -19,5 +19,50 @@
 			"type": "number",
 			"default": 2
 		}
+	},
+	"example": {
+		"attributes": {
+			"columns": 2
+		},
+		"innerBlocks": [
+			{
+				"name": "blocks-course/team-member",
+				"attributes": {
+					"name": "John Doe",
+					"bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere leo erat, a suscipit mi accumsan in. Pellentesque est sapien, elementum in turpis vitae, fermentum dictum lacus.",
+					"url": "https://picsum.photos/id/1012/300/200",
+					"socialLinks": [
+						{
+							"icon": "facebook"
+						},
+						{
+							"icon": "instagram"
+						},
+						{
+							"icon": "twitter"
+						}
+					]
+				}
+			},
+			{
+				"name": "blocks-course/team-member",
+				"attributes": {
+					"name": "Jane Doe",
+					"bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere leo erat, a suscipit mi accumsan in. Pellentesque est sapien, elementum in turpis vitae, fermentum dictum lacus.",
+					"url": "https://picsum.photos/id/1011/300/200",
+					"socialLinks": [
+						{
+							"icon": "facebook"
+						},
+						{
+							"icon": "instagram"
+						},
+						{
+							"icon": "twitter"
+						}
+					]
+				}
+			}
+		]
 	}
 }
