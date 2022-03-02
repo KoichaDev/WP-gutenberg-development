@@ -161,12 +161,24 @@ const BlockEditTeamMember = (props) => {
     const updateSocialMediaItemHandler = (key, value) => {
         const socialLinksCopy = [...socialLinks];
 
-        [socialLinksCopy[selectedSocialMediaLink][key] = value]
+        [(socialLinksCopy[selectedSocialMediaLink][key] = value)];
 
         setAttributes({
-            socialLinks: socialLinksCopy
-        })
-    }
+            socialLinks: socialLinksCopy,
+        });
+    };
+
+    const removeSocialIconHandler = () => {
+        setAttributes({
+            socialLinks: [
+                ...socialLinks.slice(0, selectedSocialMediaLink),
+                ...socialLinks.slice(selectedSocialMediaLink + 1),
+            ],
+        });
+
+        // When clearing the link, we want to set it as empty value
+        setSelectedSocialMediaLink(undefined);
+    };
 
     return (
         <>
@@ -291,16 +303,21 @@ const BlockEditTeamMember = (props) => {
                         <TextControl
                             label={__("Icon", "text-members")}
                             value={socialLinks[selectedSocialMediaLink].icon}
-                            onChange={(iconValue) => updateSocialMediaItemHandler('icon', iconValue)}
+                            onChange={(iconValue) =>
+                                updateSocialMediaItemHandler("icon", iconValue)
+                            }
                         />
                         <TextControl
                             label={__("URL", "text-members")}
                             value={socialLinks[selectedSocialMediaLink].link}
-                            onChange={(urlValue) => updateSocialMediaItemHandler('link', urlValue)}
-
+                            onChange={(urlValue) =>
+                                updateSocialMediaItemHandler("link", urlValue)
+                            }
                         />
                         <br />
-                        <Button isDestructive>{__("Remove Link", "text-members")}</Button>
+                        <Button isDestructive onClick={removeSocialIconHandler}>
+                            {__("Remove Link", "text-members")}
+                        </Button>
                     </div>
                 )}
             </div>

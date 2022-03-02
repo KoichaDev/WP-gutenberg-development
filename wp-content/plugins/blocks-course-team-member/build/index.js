@@ -203,6 +203,14 @@ const BlockEditTeamMember = props => {
     });
   };
 
+  const removeSocialIconHandler = () => {
+    setAttributes({
+      socialLinks: [...socialLinks.slice(0, selectedSocialMediaLink), ...socialLinks.slice(selectedSocialMediaLink + 1)]
+    }); // When clearing the link, we want to set it as empty value
+
+    setSelectedSocialMediaLink(undefined);
+  };
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Image settings", "team-members")
   }, imageId && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
@@ -287,13 +295,14 @@ const BlockEditTeamMember = props => {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Icon", "text-members"),
     value: socialLinks[selectedSocialMediaLink].icon,
-    onChange: iconValue => updateSocialMediaItemHandler('icon', iconValue)
+    onChange: iconValue => updateSocialMediaItemHandler("icon", iconValue)
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("URL", "text-members"),
     value: socialLinks[selectedSocialMediaLink].link,
-    onChange: urlValue => updateSocialMediaItemHandler('link', urlValue)
+    onChange: urlValue => updateSocialMediaItemHandler("link", urlValue)
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
-    isDestructive: true
+    isDestructive: true,
+    onClick: removeSocialIconHandler
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Remove Link", "text-members")))));
 };
 
