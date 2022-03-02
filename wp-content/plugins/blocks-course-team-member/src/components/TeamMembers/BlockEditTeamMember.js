@@ -70,7 +70,7 @@ const BlockEditTeamMember = (props) => {
 
     /* This is a way to focus on the title (h4) textarea when the url is changed. */
     useEffect(() => {
-        if (url && !previousURL) {
+        if (url && !previousURL && isSelected) {
             titleRef.current.focus();
         }
     }, [url, previousURL]);

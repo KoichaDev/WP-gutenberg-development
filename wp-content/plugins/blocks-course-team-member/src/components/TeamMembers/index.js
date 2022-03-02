@@ -1,5 +1,5 @@
 // Wordpress dependencies
-import { registerBlockType } from "@wordpress/blocks";
+import { registerBlockType, createBlock } from "@wordpress/blocks";
 
 // Block meta
 import blockMetaTeamMembers from "./BlockMetaTeamMembers";

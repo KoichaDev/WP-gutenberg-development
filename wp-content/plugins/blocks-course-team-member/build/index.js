@@ -88,7 +88,7 @@ const BlockEditTeamMember = props => {
   /* This is a way to focus on the title (h4) textarea when the url is changed. */
 
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (url && !previousURL) {
+    if (url && !previousURL && isSelected) {
       titleRef.current.focus();
     }
   }, [url, previousURL]);
@@ -547,7 +547,56 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)("blocks-course/team-members", {
   edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"],
-  save: _save__WEBPACK_IMPORTED_MODULE_4__["default"]
+  save: _save__WEBPACK_IMPORTED_MODULE_4__["default"],
+  transforms: {
+    from: [{
+      type: "block",
+      blocks: ["core/gallery"],
+      transform: _ref => {
+        let {
+          images,
+          columns
+        } = _ref;
+        const innerBlocks = images.map(_ref2 => {
+          let {
+            id,
+            url,
+            alt
+          } = _ref2;
+          return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/team-member", {
+            id,
+            url,
+            alt
+          });
+        });
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/team-members", {
+          columns: columns || 2
+        }, innerBlocks);
+      }
+    }, {
+      type: "block",
+      blocks: ["core/image"],
+      isMultiBlock: true,
+      transform: attributes => {
+        const innerBlocks = attributes.map(_ref3 => {
+          let {
+            id,
+            url,
+            alt
+          } = _ref3;
+          return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/team-member", {
+            id,
+            url,
+            alt
+          });
+        });
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/team-members", {
+          // adding columns based on the number of images we have
+          columns: attributes.length > 3 ? 3 : attributes.length
+        }, innerBlocks);
+      }
+    }]
+  }
 });
 
 /***/ }),
