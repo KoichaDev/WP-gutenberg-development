@@ -49,7 +49,8 @@ const BlockEditTeamMember = props => {
     alt,
     socialLinks
   } = attributes;
-  const [blobURL, setBlobURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
+  const [blobURL, setBlobURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined); // prettier-ignore
+
   const [selectedSocialMediaLink, setSelectedSocialMediaLink] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
   const previousURL = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.usePrevious)(url);
   const previousIsSelectedSocialMediaLink = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.usePrevious)(isSelected);
@@ -194,6 +195,14 @@ const BlockEditTeamMember = props => {
     setSelectedSocialMediaLink(socialLinks.length);
   };
 
+  const updateSocialMediaItemHandler = (key, value) => {
+    const socialLinksCopy = [...socialLinks];
+    [socialLinksCopy[selectedSocialMediaLink][key] = value];
+    setAttributes({
+      socialLinks: socialLinksCopy
+    });
+  };
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Image settings", "team-members")
   }, imageId && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
@@ -276,9 +285,13 @@ const BlockEditTeamMember = props => {
   })))))), selectedSocialMediaLink !== undefined && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wp-block-blocks-course-team-member-link-form"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Icon", "text-members")
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Icon", "text-members"),
+    value: socialLinks[selectedSocialMediaLink].icon,
+    onChange: iconValue => updateSocialMediaItemHandler('icon', iconValue)
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("URL", "text-members")
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("URL", "text-members"),
+    value: socialLinks[selectedSocialMediaLink].link,
+    onChange: urlValue => updateSocialMediaItemHandler('link', urlValue)
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
     isDestructive: true
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Remove Link", "text-members")))));

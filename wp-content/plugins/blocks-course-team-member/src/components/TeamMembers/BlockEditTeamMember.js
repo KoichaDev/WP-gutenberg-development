@@ -33,8 +33,8 @@ const BlockEditTeamMember = (props) => {
     const { name, bio, id: imageId, url, alt, socialLinks } = attributes;
 
     const [blobURL, setBlobURL] = useState(undefined);
-    const [selectedSocialMediaLink, setSelectedSocialMediaLink] =
-        useState(undefined);
+    // prettier-ignore
+    const [selectedSocialMediaLink, setSelectedSocialMediaLink] = useState(undefined);
 
     const previousURL = usePrevious(url);
     const previousIsSelectedSocialMediaLink = usePrevious(isSelected);
@@ -158,6 +158,16 @@ const BlockEditTeamMember = (props) => {
         setSelectedSocialMediaLink(socialLinks.length);
     };
 
+    const updateSocialMediaItemHandler = (key, value) => {
+        const socialLinksCopy = [...socialLinks];
+
+        [socialLinksCopy[selectedSocialMediaLink][key] = value]
+
+        setAttributes({
+            socialLinks: socialLinksCopy
+        })
+    }
+
     return (
         <>
             <InspectorControls>
@@ -278,8 +288,17 @@ const BlockEditTeamMember = (props) => {
 
                 {selectedSocialMediaLink !== undefined && (
                     <div className="wp-block-blocks-course-team-member-link-form">
-                        <TextControl label={__("Icon", "text-members")} />
-                        <TextControl label={__("URL", "text-members")} />
+                        <TextControl
+                            label={__("Icon", "text-members")}
+                            value={socialLinks[selectedSocialMediaLink].icon}
+                            onChange={(iconValue) => updateSocialMediaItemHandler('icon', iconValue)}
+                        />
+                        <TextControl
+                            label={__("URL", "text-members")}
+                            value={socialLinks[selectedSocialMediaLink].link}
+                            onChange={(urlValue) => updateSocialMediaItemHandler('link', urlValue)}
+
+                        />
                         <br />
                         <Button isDestructive>{__("Remove Link", "text-members")}</Button>
                     </div>
