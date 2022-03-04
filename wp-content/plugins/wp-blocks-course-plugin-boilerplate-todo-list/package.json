@@ -1,0 +1,40 @@
+{
+	"name": "wp-blocks-course-plugin-boilerplate",
+	"version": "1.0.0",
+	"description": "",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"dev": "wp-scripts start",
+		"format": "wp-scripts format  && stylelint \"**/*.scss\" --fix",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"prepare": "husky install"
+	},
+	"prettier": "@wordpress/prettier-config",
+	"stylelint": {
+		"extends": "@wordpress/stylelint-config/scss"
+	},
+	"lint-staged": {
+		"*.js": [
+			"wp-scripts lint-js",
+			"wp-scripts format"
+		],
+		"*.scss": "npx stylelint --fix"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@wordpress/eslint-plugin": "^10.0.2",
+		"@wordpress/prettier-config": "^1.1.2",
+		"@wordpress/scripts": "^22.1.0",
+		"@wordpress/stylelint-config": "^20.0.1",
+		"eslint-config-prettier": "^8.3.0",
+		"husky": "^7.0.4",
+		"lint-staged": "^12.1.5"
+	},
+	"dependencies": {
+		"@wordpress/i18n": "^4.3.1"
+	}
+}
