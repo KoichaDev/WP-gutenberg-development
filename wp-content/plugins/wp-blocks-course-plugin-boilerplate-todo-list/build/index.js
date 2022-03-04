@@ -2,25 +2,121 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/editor.scss":
-/*!*************************!*\
-  !*** ./src/editor.scss ***!
-  \*************************/
+/***/ "./src/stores/todos-stores/actions.js":
+/*!********************************************!*\
+  !*** ./src/stores/todos-stores/actions.js ***!
+  \********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addTodo": function() { return /* binding */ addTodo; }
+/* harmony export */ });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
 
+const addTodo = todo => {
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_TODO,
+    todo
+  };
+};
 
 /***/ }),
 
-/***/ "@wordpress/i18n":
+/***/ "./src/stores/todos-stores/index.js":
+/*!******************************************!*\
+  !*** ./src/stores/todos-stores/index.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducer */ "./src/stores/todos-stores/reducer.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./src/stores/todos-stores/actions.js");
+/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./selectors */ "./src/stores/todos-stores/selectors.js");
+
+
+
+
+const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.createReduxStore)('blocks-course/todos', {
+  reducer: _reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__,
+  selectors: _selectors__WEBPACK_IMPORTED_MODULE_3__
+});
+(0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.register)(store);
+
+/***/ }),
+
+/***/ "./src/stores/todos-stores/reducer.js":
+/*!********************************************!*\
+  !*** ./src/stores/todos-stores/reducer.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
+
+const DEFAULT_STATE = {
+  todos: []
+};
+
+const reducer = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_STATE;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _types__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_TODO:
+      return { ...state,
+        todos: [...state.todos, action.todo]
+      };
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/stores/todos-stores/selectors.js":
+/*!**********************************************!*\
+  !*** ./src/stores/todos-stores/selectors.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTodos": function() { return /* binding */ getTodos; }
+/* harmony export */ });
+const getTodos = state => {
+  return state.todos;
+};
+
+/***/ }),
+
+/***/ "./src/stores/todos-stores/types.js":
+/*!******************************************!*\
+  !*** ./src/stores/todos-stores/types.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const ACTIONS = {
+  ADD_TODO: 'add-todo'
+};
+/* harmony default export */ __webpack_exports__["default"] = (ACTIONS);
+
+/***/ }),
+
+/***/ "@wordpress/data":
 /*!******************************!*\
-  !*** external ["wp","i18n"] ***!
+  !*** external ["wp","data"] ***!
   \******************************/
 /***/ (function(module) {
 
-module.exports = window["wp"]["i18n"];
+module.exports = window["wp"]["data"];
 
 /***/ })
 
@@ -99,12 +195,8 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _stores_todos_stores_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stores/todos-stores/index.js */ "./src/stores/todos-stores/index.js");
 
-
-alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Loaded!"));
 }();
 /******/ })()
 ;
