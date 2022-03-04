@@ -1,3 +1,20 @@
-.editor-styles-wrapper {
-	background-color: #777 !important;
+.wp-block-blocks-course-todo-list {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			margin-bottom: 1em;
+
+			&.todo-completed {
+				opacity: 0.5;
+				text-decoration: line-through;
+			}
+
+			label {
+				font-size: 1rem;
+			}
+		}
+	}
 }

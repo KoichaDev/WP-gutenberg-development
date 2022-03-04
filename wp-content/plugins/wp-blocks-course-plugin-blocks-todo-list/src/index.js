@@ -1,4 +1,9 @@
-import { __ } from '@wordpress/i18n';
-import './editor.scss';
+import { registerBlockType } from '@wordpress/blocks';
+import Edit from './edit';
+import save from './save';
+import './style.scss';
 
-alert(__('Loaded!'));
+registerBlockType('blocks-course/todo-list', {
+    edit: Edit,
+    save,
+});

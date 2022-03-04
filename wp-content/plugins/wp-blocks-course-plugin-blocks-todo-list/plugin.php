@@ -1,24 +1,26 @@
 <?php
 /**
- * Plugin Name:       Plugin Boilerplate
- * Description:       Plugin Boilerplate.
+ * Plugin Name:       Todo Block List
+ * Description:       Display Todo Block List
  * Requires at least: 5.7
  * Requires PHP:      7.0
  * Version:           0.1.0
- * Author:            Ali Alaa
+ * Author:            Khoi Hoang
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       plugin-boilerplate
+ * Text Domain:       latest-posts
  *
+ * @package           Blocks course
  */
 
-function blocks_course_plugin_boilerplate_enqueue_assets() {
 
-    $asset_file = include(plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
-
-    wp_enqueue_script( 'blocks-course-plugin-boilerplate-script', plugins_url('build/index.js', __FILE__), $asset_file['dependencies'], $asset_file['version']);
-    
-    wp_enqueue_style( 'blocks-course-plugin-boilerplate-style', plugins_url('build/index.css', __FILE__) );
+ function blocks_course_render_todo_list_block ($attributes) {
+	 return null;
+ }
+ 
+function blocks_course_todos_list_block_init() {
+	register_block_type_from_metadata( __DIR__, [
+		'render_callback' => 'blocks_course_render_todo_list_block',
+	] );
 }
-
-add_action( 'enqueue_block_editor_assets', 'blocks_course_plugin_boilerplate_enqueue_assets' );
+add_action( 'init', 'blocks_course_todos_list_block_init' );
