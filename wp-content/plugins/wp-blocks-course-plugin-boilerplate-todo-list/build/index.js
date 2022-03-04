@@ -23,6 +23,33 @@ const addTodo = todo => {
 
 /***/ }),
 
+/***/ "./src/stores/todos-stores/controls.js":
+/*!*********************************************!*\
+  !*** ./src/stores/todos-stores/controls.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchTodos": function() { return /* binding */ fetchTodos; }
+/* harmony export */ });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
+ // controllers is used to send API-request to our resolvers. Controllers are another type of actions that is called "control-actions"
+
+const fetchTodos = () => {
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.FETCH_TODOS
+  };
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  FETCH_TODOS() {
+    return window.fetch('https://jsonplaceholder.typicode.com/todos?_limit=10').then(response => response.json());
+  }
+
+});
+
+/***/ }),
+
 /***/ "./src/stores/todos-stores/index.js":
 /*!******************************************!*\
   !*** ./src/stores/todos-stores/index.js ***!
@@ -33,16 +60,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducer */ "./src/stores/todos-stores/reducer.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./src/stores/todos-stores/actions.js");
-/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./selectors */ "./src/stores/todos-stores/selectors.js");
+/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selectors */ "./src/stores/todos-stores/selectors.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./src/stores/todos-stores/actions.js");
+/* harmony import */ var _resolvers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./resolvers */ "./src/stores/todos-stores/resolvers.js");
+/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./controls */ "./src/stores/todos-stores/controls.js");
+
+
 
 
 
 
 const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.createReduxStore)('blocks-course/todos', {
   reducer: _reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  actions: _actions__WEBPACK_IMPORTED_MODULE_2__,
-  selectors: _selectors__WEBPACK_IMPORTED_MODULE_3__
+  selectors: _selectors__WEBPACK_IMPORTED_MODULE_2__,
+  // selectors is only going to return something from a local state, and not any API (side-effects )
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__,
+  resolvers: _resolvers__WEBPACK_IMPORTED_MODULE_4__,
+  controls: _controls__WEBPACK_IMPORTED_MODULE_5__["default"] // control functions that will run whenever a control-action is called
+
 });
 (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.register)(store);
 
@@ -66,7 +101,7 @@ const reducer = function () {
   let action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _types__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_TODO:
+    case _types__WEBPACK_IMPORTED_MODULE_0__.ADD_TODO:
       return { ...state,
         todos: [...state.todos, action.todo]
       };
@@ -77,6 +112,29 @@ const reducer = function () {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/stores/todos-stores/resolvers.js":
+/*!**********************************************!*\
+  !*** ./src/stores/todos-stores/resolvers.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTodos": function() { return /* binding */ getTodos; }
+/* harmony export */ });
+/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controls */ "./src/stores/todos-stores/controls.js");
+// Resolvers is handling the side-effects
+ // The generator function are a function that can stop their execution at a certain pointa and come back and continue later
+// More info about how generator function works: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*
+
+function* getTodos() {
+  // // we have to use 'yield' keyword  to dispatch it, because w are using generator function
+  const todos = yield (0,_controls__WEBPACK_IMPORTED_MODULE_0__.fetchTodos)();
+  console.log(todos);
+}
 
 /***/ }),
 
@@ -103,10 +161,12 @@ const getTodos = state => {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-const ACTIONS = {
-  ADD_TODO: 'add-todo'
-};
-/* harmony default export */ __webpack_exports__["default"] = (ACTIONS);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ADD_TODO": function() { return /* binding */ ADD_TODO; },
+/* harmony export */   "FETCH_TODOS": function() { return /* binding */ FETCH_TODOS; }
+/* harmony export */ });
+const ADD_TODO = 'ADD_TODO';
+const FETCH_TODOS = 'FETCH_TODOS';
 
 /***/ }),
 

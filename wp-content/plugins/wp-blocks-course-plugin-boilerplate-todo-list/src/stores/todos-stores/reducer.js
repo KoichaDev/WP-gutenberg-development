@@ -1,4 +1,4 @@
-import ACTIONS from './types'
+import { ADD_TODO } from './types';
 
 const DEFAULT_STATE = {
     todos: [],
@@ -6,7 +6,7 @@ const DEFAULT_STATE = {
 
 const reducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case ACTIONS.ADD_TODO:
+        case ADD_TODO:
             return { ...state, todos: [...state.todos, action.todo] };
 
         default:
