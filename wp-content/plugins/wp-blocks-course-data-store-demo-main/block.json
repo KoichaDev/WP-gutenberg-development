@@ -1,0 +1,13 @@
+{
+	"apiVersion": 2,
+	"name": "blocks-course/data-store-demo",
+	"title": "Data Store Demo",
+	"category": "widgets",
+	"icon": "database",
+	"description": "Example of retrieving information and dispatching actions to the block editor's data store.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "data-store-demo",
+	"editorScript": "file:./build/index.js"
+}
