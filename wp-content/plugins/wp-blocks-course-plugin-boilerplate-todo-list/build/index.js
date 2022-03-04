@@ -10,14 +10,21 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addTodo": function() { return /* binding */ addTodo; }
+/* harmony export */   "addTodo": function() { return /* binding */ addTodo; },
+/* harmony export */   "populateTodos": function() { return /* binding */ populateTodos; }
 /* harmony export */ });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
 
 const addTodo = todo => {
   return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_TODO,
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.ADD_TODO,
     todo
+  };
+};
+const populateTodos = todos => {
+  return {
+    type: 'POPULATE_TODOS',
+    todos
   };
 };
 
@@ -43,7 +50,13 @@ const fetchTodos = () => {
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   FETCH_TODOS() {
-    return window.fetch('https://jsonplaceholder.typicode.com/todos?_limit=10').then(response => response.json());
+    return window.fetch('https://jsonplaceholder.typicode.com/todos?_limit=10').then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw new Error('Could not fetch todos');
+    });
   }
 
 });
@@ -92,6 +105,7 @@ const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.createReduxStore)(
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
 
+
 const DEFAULT_STATE = {
   todos: []
 };
@@ -104,6 +118,11 @@ const reducer = function () {
     case _types__WEBPACK_IMPORTED_MODULE_0__.ADD_TODO:
       return { ...state,
         todos: [...state.todos, action.todo]
+      };
+
+    case _types__WEBPACK_IMPORTED_MODULE_0__.POPULATE_TODOS:
+      return { ...state,
+        todos: action.todos
       };
 
     default:
@@ -125,15 +144,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getTodos": function() { return /* binding */ getTodos; }
 /* harmony export */ });
-/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controls */ "./src/stores/todos-stores/controls.js");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controls */ "./src/stores/todos-stores/controls.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./src/stores/todos-stores/actions.js");
 // Resolvers is handling the side-effects
+
+
  // The generator function are a function that can stop their execution at a certain pointa and come back and continue later
 // More info about how generator function works: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*
 
 function* getTodos() {
-  // // we have to use 'yield' keyword  to dispatch it, because w are using generator function
-  const todos = yield (0,_controls__WEBPACK_IMPORTED_MODULE_0__.fetchTodos)();
-  console.log(todos);
+  // we have to use 'yield' keyword  to dispatch it, because w are using generator function
+  try {
+    const todos = yield (0,_controls__WEBPACK_IMPORTED_MODULE_1__.fetchTodos)();
+    return (0,_actions__WEBPACK_IMPORTED_MODULE_2__.populateTodos)(todos);
+  } catch (err) {
+    return (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/notices').createErrorNotice(err.message || 'Something went wrong');
+  }
 }
 
 /***/ }),
@@ -163,10 +191,12 @@ const getTodos = state => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ADD_TODO": function() { return /* binding */ ADD_TODO; },
-/* harmony export */   "FETCH_TODOS": function() { return /* binding */ FETCH_TODOS; }
+/* harmony export */   "FETCH_TODOS": function() { return /* binding */ FETCH_TODOS; },
+/* harmony export */   "POPULATE_TODOS": function() { return /* binding */ POPULATE_TODOS; }
 /* harmony export */ });
 const ADD_TODO = 'ADD_TODO';
 const FETCH_TODOS = 'FETCH_TODOS';
+const POPULATE_TODOS = 'POPULATE_TODOS';
 
 /***/ }),
 
