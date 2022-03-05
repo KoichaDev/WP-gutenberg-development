@@ -27,11 +27,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const Edit = () => {
+  const [newTodos, setNewTodos] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const actions = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useDispatch)('blocks-course/todos');
   const todos = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     const todosStore = select('blocks-course/todos');
     return todosStore && todosStore.getTodos();
   }, []);
+
+  const onSubmitHandler = e => {
+    e.preventDefault();
+    if (!actions) return;
+    actions.addTodo({
+      id: Math.random(),
+      'title': newTodos,
+      completed: false
+    });
+  };
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.useBlockProps)(), !todos && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please Make sure your plugin is activated!', 'todo-list')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, todos.map(todo => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
       key: todo.id,
@@ -40,7 +54,15 @@ const Edit = () => {
       label: todo.title,
       checked: todo.completed
     }));
-  })));
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
+    onSubmit: onSubmitHandler
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    value: newTodos,
+    onChange: value => setNewTodos(value)
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    type: "submit",
+    isPrimary: true
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add Todo', 'todo-list'))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);

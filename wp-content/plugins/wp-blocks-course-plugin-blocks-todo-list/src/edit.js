@@ -1,16 +1,28 @@
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { CheckboxControl } from '@wordpress/components';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { CheckboxControl, TextControl, Button } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
 
 import './editor.scss';
 
 const Edit = () => {
+    const [newTodos, setNewTodos] = useState('');
+
+    const actions = useDispatch('blocks-course/todos');
+
     const todos = useSelect((select) => {
         const todosStore = select('blocks-course/todos');
 
         return todosStore && todosStore.getTodos();
     }, []);
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+
+        if (!actions) return;
+        actions.addTodo({ id: Math.random(), 'title': newTodos, completed: false });
+    };
 
     return (
         <div {...useBlockProps()}>
@@ -38,6 +50,16 @@ const Edit = () => {
                     );
                 })}
             </ul>
+
+            <form onSubmit={onSubmitHandler}>
+                <TextControl
+                    value={newTodos}
+                    onChange={(value) => setNewTodos(value)}
+                />
+                <Button type="submit" isPrimary>
+                    {__('Add Todo', 'todo-list')}
+                </Button>
+            </form>
         </div>
     );
 };

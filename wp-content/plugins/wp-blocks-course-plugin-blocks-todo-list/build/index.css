@@ -16,5 +16,15 @@
 .wp-block-blocks-course-todo-list ul li label {
   font-size: 1rem;
 }
+.wp-block-blocks-course-todo-list .add-todo-form {
+  display: flex;
+  margin-top: 1.875em;
+}
+.wp-block-blocks-course-todo-list .add-todo-form input {
+  height: 2.25em;
+}
+.wp-block-blocks-course-todo-list .add-todo-form button {
+  margin-left: 1.25em;
+}
 
 /*# sourceMappingURL=index.css.map*/

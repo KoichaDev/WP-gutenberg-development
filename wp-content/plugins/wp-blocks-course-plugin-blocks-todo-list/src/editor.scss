@@ -17,4 +17,16 @@
 			}
 		}
 	}
+	.add-todo-form {
+		display: flex;
+		margin-top: 1.875em;
+
+		input {
+			height: 2.25em;
+		}
+
+		button {
+			margin-left: 1.25em;
+		}
+	}
 }
