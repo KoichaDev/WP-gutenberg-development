@@ -30,20 +30,20 @@ __webpack_require__.r(__webpack_exports__);
 
 const Edit = () => {
   const [newTodos, setNewTodos] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [isSendingRequest, setIsSendingRequest] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const actions = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useDispatch)('blocks-course/todos');
   const todos = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     const todosStore = select('blocks-course/todos');
     return todosStore && todosStore.getTodos();
   }, []);
 
-  const onSubmitHandler = e => {
+  const onSubmitHandler = async e => {
     e.preventDefault();
-    if (!actions) return;
-    actions.addTodo({
-      id: Math.random(),
-      'title': newTodos,
-      completed: false
-    });
+    if (!actions && newTodos) return;
+    setIsSendingRequest(true);
+    await actions.addTodo(newTodos);
+    setNewTodos('');
+    setIsSendingRequest(false);
   };
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.useBlockProps)(), !todos && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please Make sure your plugin is activated!', 'todo-list')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, todos.map(todo => {
@@ -61,7 +61,8 @@ const Edit = () => {
     onChange: value => setNewTodos(value)
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
     type: "submit",
-    isPrimary: true
+    isPrimary: true,
+    disabled: isSendingRequest
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add Todo', 'todo-list'))));
 };
 

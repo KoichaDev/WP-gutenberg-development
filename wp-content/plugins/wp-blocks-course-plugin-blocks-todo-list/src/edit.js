@@ -8,6 +8,7 @@ import './editor.scss';
 
 const Edit = () => {
     const [newTodos, setNewTodos] = useState('');
+    const [isSendingRequest, setIsSendingRequest] = useState(false)
 
     const actions = useDispatch('blocks-course/todos');
 
@@ -17,11 +18,14 @@ const Edit = () => {
         return todosStore && todosStore.getTodos();
     }, []);
 
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
 
-        if (!actions) return;
-        actions.addTodo({ id: Math.random(), 'title': newTodos, completed: false });
+        if (!actions && newTodos) return;
+        setIsSendingRequest(true)
+        await actions.addTodo(newTodos);
+        setNewTodos('')
+        setIsSendingRequest(false)
     };
 
     return (
@@ -56,7 +60,7 @@ const Edit = () => {
                     value={newTodos}
                     onChange={(value) => setNewTodos(value)}
                 />
-                <Button type="submit" isPrimary>
+                <Button type="submit" isPrimary disabled={isSendingRequest}>
                     {__('Add Todo', 'todo-list')}
                 </Button>
             </form>

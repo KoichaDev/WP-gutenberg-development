@@ -13,14 +13,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addTodo": function() { return /* binding */ addTodo; },
 /* harmony export */   "populateTodos": function() { return /* binding */ populateTodos; }
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
+/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./controls */ "./src/stores/todos-stores/controls.js");
 
-const addTodo = todo => {
-  return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__.ADD_TODO,
-    todo
-  };
-};
+
+
+function* addTodo(title) {
+  try {
+    const todo = yield (0,_controls__WEBPACK_IMPORTED_MODULE_2__.createTodo)(title);
+    return {
+      type: _types__WEBPACK_IMPORTED_MODULE_1__.ADD_TODO,
+      todo
+    };
+  } catch (err) {
+    return (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/notices').createErrorNotice(err.message || 'Could not create todo');
+  }
+}
 const populateTodos = todos => {
   return {
     type: 'POPULATE_TODOS',
@@ -38,6 +48,7 @@ const populateTodos = todos => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createTodo": function() { return /* binding */ createTodo; },
 /* harmony export */   "fetchTodos": function() { return /* binding */ fetchTodos; }
 /* harmony export */ });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/stores/todos-stores/types.js");
@@ -48,6 +59,12 @@ const fetchTodos = () => {
     type: _types__WEBPACK_IMPORTED_MODULE_0__.FETCH_TODOS
   };
 };
+const createTodo = title => {
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.CREATE_TODO,
+    title
+  };
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   FETCH_TODOS() {
     return window.fetch('https://jsonplaceholder.typicode.com/todos?_limit=10').then(response => {
@@ -56,6 +73,29 @@ const fetchTodos = () => {
       }
 
       throw new Error('Could not fetch todos');
+    });
+  },
+
+  CREATE_TODO(_ref) {
+    let {
+      title
+    } = _ref;
+    return window.fetch('https://jsonplaceholder.typicode.com/todos', {
+      method: 'POST',
+      body: JSON.stringify({
+        title,
+        completed: false,
+        userId: 1
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw new Error('Could not create todo');
     });
   }
 
@@ -191,12 +231,14 @@ const getTodos = state => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ADD_TODO": function() { return /* binding */ ADD_TODO; },
+/* harmony export */   "CREATE_TODO": function() { return /* binding */ CREATE_TODO; },
 /* harmony export */   "FETCH_TODOS": function() { return /* binding */ FETCH_TODOS; },
 /* harmony export */   "POPULATE_TODOS": function() { return /* binding */ POPULATE_TODOS; }
 /* harmony export */ });
 const ADD_TODO = 'ADD_TODO';
 const FETCH_TODOS = 'FETCH_TODOS';
 const POPULATE_TODOS = 'POPULATE_TODOS';
+const CREATE_TODO = 'CREATE_TODO';
 
 /***/ }),
 
