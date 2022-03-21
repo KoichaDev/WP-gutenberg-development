@@ -2590,6 +2590,27 @@
     react-resize-aware "^3.1.0"
     use-memo-one "^1.1.1"
 
+"@wordpress/core-data@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@wordpress/core-data/-/core-data-4.2.1.tgz#53df781b0597bae755207191126c8beb16424f16"
+  integrity sha512-L0Gia4qbzwU7mXTUPep94MRgvt8a0iR18bfPTOz2ptYW6ciAftearEEBBIEoAExnZhW+8ihHNCH/Jm2NOqGaKg==
+  dependencies:
+    "@babel/runtime" "^7.16.0"
+    "@wordpress/api-fetch" "^6.1.1"
+    "@wordpress/blocks" "^11.3.1"
+    "@wordpress/data" "^6.4.1"
+    "@wordpress/deprecated" "^3.4.1"
+    "@wordpress/element" "^4.2.1"
+    "@wordpress/html-entities" "^3.4.1"
+    "@wordpress/i18n" "^4.4.1"
+    "@wordpress/is-shallow-equal" "^4.4.1"
+    "@wordpress/url" "^3.5.1"
+    equivalent-key-map "^0.2.2"
+    lodash "^4.17.21"
+    memize "^1.1.0"
+    rememo "^3.0.0"
+    uuid "^8.3.0"
+
 "@wordpress/data@^6.3.0":
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/@wordpress/data/-/data-6.3.0.tgz#715824749ac67c2ee9ee88fa57757dba9e68b365"

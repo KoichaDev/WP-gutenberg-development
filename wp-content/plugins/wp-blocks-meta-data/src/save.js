@@ -1,9 +1,5 @@
-import React from 'react'
-
 const save = () => {
-  return (
-    <div>save</div>
-  )
+  return null;
 }
 
 export default save

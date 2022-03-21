@@ -8,9 +8,9 @@
  * Author:            Khoi Hoang
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       team-members
+ * Text Domain:       block-meta-data
  *
- * @package           blocks-course
+ * @package           block-meta-data
  */
 
 /**
@@ -26,11 +26,11 @@ function block_course_register_meta() {
 	
 	register_meta( 'post', '_block_course_post_subtitle', [
 		'single' 			=>	true,
-		'type'	 			=> 'string' // which data type the meta-key field will be
+		'type'	 			=> 'string', // which data type the meta-key field will be
 		'show_in_rest' 		=> true, // behind the scene, WP is using a REST-api to get the data
 		'sanitize_callback'	=> 'sanitize_text_field', // sanitize the data before sending the data to the server
 		'auth_callback'		=> function() {
-			return current_user_can( 'edit_post' )
+			return current_user_can( 'edit_posts' );
 		}
 	]);
 }
