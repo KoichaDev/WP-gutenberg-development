@@ -21,7 +21,8 @@
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
- 
+include_once 'templates.php';
+
 function block_course_register_meta() {
 	
 	register_meta( 'post', '_block_course_post_subtitle', [
