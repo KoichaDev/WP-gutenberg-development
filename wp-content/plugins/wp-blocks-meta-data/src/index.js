@@ -1,5 +1,7 @@
 import { registerBlockType} from "@wordpress/blocks";
 
+import './plugins/sidebar';
+
 import "./style.scss";
 
 import Edit from "./edit";

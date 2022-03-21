@@ -1,6 +1,5 @@
 import { registerBlockType, createBlock } from "@wordpress/blocks";
 
-
 import Edit from "./edit";
 import save from "./save";
 
