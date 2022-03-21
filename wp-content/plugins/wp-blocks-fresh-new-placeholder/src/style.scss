@@ -1,0 +1,60 @@
+.wp-block-blocks-course-team-members {
+	display: flex;
+	flex-wrap: wrap;
+	// The -10px is to fix the margin gap of the element based on the margin 10px of .wp-block-blocks-course-team-member
+	margin-left: -10px;
+	margin-right: -10px;
+
+	@for $i from 1 through 6 {
+		&.has-#{$i}-columns {
+			.wp-block-blocks-course-team-member {
+				// When subtracting the -20px, that means we are subtracting the width
+				width: calc(100% / #{$i} - 20px);
+			}
+		}
+	}
+	.wp-block-blocks-course-team-member {
+		margin: 10px;
+
+		img {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			margin-bottom: 1.25em;
+		}
+
+		h4 {
+			margin: 0;
+			color: #222;
+			font-size: 1.375rem;
+			font-weight: bold;
+		}
+
+		p {
+			color: #565656;
+			font-size: 1rem;
+			font-weight: 300;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+
+		.wp-block-blocks-course-team-member-social-media-links {
+			ul {
+				display: flex;
+				align-content: center;
+				gap: 0.5em;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+
+				a {
+					text-decoration: none;
+				}
+
+				span.dashicon {
+					color: #4e4e4e;
+				}
+			}
+		}
+	}
+}

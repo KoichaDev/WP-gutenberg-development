@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "blocks-course/meta-data",
+	"title": "Block Meta Data",
+	"category": "media",
+	"icon": "groups",
+	"description": "Meta Data example",
+	"keywords": ["meta", "data"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "block-meta-data",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

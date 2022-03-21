@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "blocks-course/placeholder",
+	"title": "Block Placeholder",
+	"category": "placeholder",
+	"icon": "groups",
+	"description": "Add a description here...",
+	"keywords": ["meta", "data"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "block-placeholder",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
