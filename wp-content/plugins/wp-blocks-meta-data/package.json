@@ -27,6 +27,8 @@
 		"@wordpress/data": "^6.3.0",
 		"@wordpress/element": "^4.1.1",
 		"@wordpress/i18n": "^4.3.1",
-		"@wordpress/core-data": "^4.2.1"
+		"@wordpress/core-data": "^4.2.1",
+		"@wordpress/plugins": "^4.2.1",
+		"@wordpress/edit-post" : "^6.1.1"
 	}
 }
