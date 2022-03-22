@@ -1,6 +1,6 @@
 import { registerBlockType} from "@wordpress/blocks";
 
-import './plugins/sidebar';
+import './plugins/Sidebar';
 
 import "./style.scss";
 
